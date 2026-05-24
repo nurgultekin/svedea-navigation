@@ -25,7 +25,6 @@ C:\Users\NurGu\svedea-navigation\obj\Debug\net10.0\scopedcss\Components\Layout\N
 C:\Users\NurGu\svedea-navigation\obj\Debug\net10.0\scopedcss\Components\Layout\ReconnectModal.razor.rz.scp.css
 C:\Users\NurGu\svedea-navigation\obj\Debug\net10.0\scopedcss\bundle\svedea-navigation.styles.css
 C:\Users\NurGu\svedea-navigation\obj\Debug\net10.0\scopedcss\projectbundle\svedea-navigation.bundle.scp.css
-C:\Users\NurGu\svedea-navigation\obj\Debug\net10.0\compressed\u0ihdnv0ir-{0}-khy4lop6wu-khy4lop6wu.gz
 C:\Users\NurGu\svedea-navigation\obj\Debug\net10.0\compressed\p5t0g81j9l-{0}-bqjiyaj88i-bqjiyaj88i.gz
 C:\Users\NurGu\svedea-navigation\obj\Debug\net10.0\compressed\q6m5xzrw41-{0}-c2jlpeoesf-c2jlpeoesf.gz
 C:\Users\NurGu\svedea-navigation\obj\Debug\net10.0\compressed\kvwufbmchr-{0}-erw9l3u2r3-erw9l3u2r3.gz
@@ -73,8 +72,6 @@ C:\Users\NurGu\svedea-navigation\obj\Debug\net10.0\compressed\6oidb1dbv4-{0}-0j3
 C:\Users\NurGu\svedea-navigation\obj\Debug\net10.0\compressed\wf6vxvg02f-{0}-abdmv1u4y3-abdmv1u4y3.gz
 C:\Users\NurGu\svedea-navigation\obj\Debug\net10.0\compressed\233ik67wmz-{0}-b9228eflpl-b9228eflpl.gz
 C:\Users\NurGu\svedea-navigation\obj\Debug\net10.0\compressed\ycyxh8lkp2-{0}-2tj1sjhksk-2tj1sjhksk.gz
-C:\Users\NurGu\svedea-navigation\obj\Debug\net10.0\compressed\mjkhxkpqtl-{0}-4jvzoukc1w-4jvzoukc1w.gz
-C:\Users\NurGu\svedea-navigation\obj\Debug\net10.0\compressed\np7vk5ndwl-{0}-4jvzoukc1w-4jvzoukc1w.gz
 C:\Users\NurGu\svedea-navigation\obj\Debug\net10.0\staticwebassets.build.json
 C:\Users\NurGu\svedea-navigation\obj\Debug\net10.0\staticwebassets.build.json.cache
 C:\Users\NurGu\svedea-navigation\obj\Debug\net10.0\staticwebassets.development.json
@@ -85,3 +82,6 @@ C:\Users\NurGu\svedea-navigation\obj\Debug\net10.0\refint\svedea-navigation.dll
 C:\Users\NurGu\svedea-navigation\obj\Debug\net10.0\svedea-navigation.pdb
 C:\Users\NurGu\svedea-navigation\obj\Debug\net10.0\svedea-navigation.genruntimeconfig.cache
 C:\Users\NurGu\svedea-navigation\obj\Debug\net10.0\ref\svedea-navigation.dll
+C:\Users\NurGu\svedea-navigation\obj\Debug\net10.0\compressed\u0ihdnv0ir-{0}-rekhblyvk0-rekhblyvk0.gz
+C:\Users\NurGu\svedea-navigation\obj\Debug\net10.0\compressed\mjkhxkpqtl-{0}-4pl418ybw8-4pl418ybw8.gz
+C:\Users\NurGu\svedea-navigation\obj\Debug\net10.0\compressed\np7vk5ndwl-{0}-4pl418ybw8-4pl418ybw8.gz

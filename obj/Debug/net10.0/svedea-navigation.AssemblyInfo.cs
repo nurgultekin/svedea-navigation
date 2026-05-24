@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("svedea-navigation")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6bb636791bb83f100a72141170b3c315f97c15ad")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+110d881b069a610bf95ec530be7e907f2c8651c4")]
 [assembly: System.Reflection.AssemblyProductAttribute("svedea-navigation")]
 [assembly: System.Reflection.AssemblyTitleAttribute("svedea-navigation")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
