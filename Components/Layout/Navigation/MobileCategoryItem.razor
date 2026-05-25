@@ -22,7 +22,8 @@
         {
             <li>
                 <a href="@link.Url"
-                   class="mobile-cat__link @(IsCurrentPage(link.Url) ? "is-active" : "")">
+                   class="mobile-cat__link @(IsCurrentPage(link.Url) ? "is-active" : "")"
+                   aria-current="@(IsCurrentPage(link.Url) ? "page" : null)">
                     @link.Label
                 </a>
             </li>

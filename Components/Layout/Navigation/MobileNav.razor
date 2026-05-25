@@ -136,6 +136,14 @@
     [Parameter] public EventCallback OnClose { get; set; }
 
     private HashSet<string> _openCategories = new();
+    private bool _prevIsOpen;
+
+    protected override void OnParametersSet()
+    {
+        if (_prevIsOpen && !IsOpen)
+            _openCategories.Clear();
+        _prevIsOpen = IsOpen;
+    }
 
     private void ToggleCategory(string name)
     {

@@ -1,5 +1,6 @@
 @rendermode InteractiveServer
 @inject NavigationManager Nav
+@inject IJSRuntime JS
 @implements IDisposable
 
 <div class="main-nav-wrapper" @onkeydown="HandleKeyDown">
@@ -29,10 +30,28 @@
     private bool _insuranceOpen = false;
     private bool _mobileOpen = false;
     private List<NavCategory> _categories = NavMenuData.GetCategories();
+    private DotNetObjectReference<MainNav>? _dotNetRef;
 
     protected override void OnInitialized()
     {
         Nav.LocationChanged += OnLocationChanged;
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            _dotNetRef = DotNetObjectReference.Create(this);
+            await JS.InvokeVoidAsync("navBreakpoint.watch", _dotNetRef, "(min-width: 62em)");
+        }
+    }
+
+    [JSInvokable]
+    public void OnEnterDesktop()
+    {
+        _mobileOpen = false;
+        _insuranceOpen = false;
+        InvokeAsync(StateHasChanged);
     }
 
     private void OnLocationChanged(object? sender, Microsoft.AspNetCore.Components.Routing.LocationChangedEventArgs e)
@@ -56,5 +75,9 @@
         }
     }
 
-    public void Dispose() => Nav.LocationChanged -= OnLocationChanged;
+    public void Dispose()
+    {
+        Nav.LocationChanged -= OnLocationChanged;
+        _dotNetRef?.Dispose();
+    }
 }

@@ -43,12 +43,15 @@
     padding: 0;
     max-height: 0;
     overflow: hidden;
-    transition: max-height 0.25s ease;
+    visibility: hidden;
+    transition: max-height 0.25s ease, visibility 0s linear 0.25s;
     background-color: rgba(0, 0, 0, 0.15);
 }
 
 .mobile-cat__links.is-open {
     max-height: 30rem;
+    visibility: visible;
+    transition: max-height 0.25s ease, visibility 0s;
 }
 
 .mobile-cat__link {

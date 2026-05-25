@@ -18,6 +18,7 @@
                             <li>
                                 <a href="@link.Url"
                                    class="insurance-dropdown__link @(IsCurrentPage(link.Url) ? "is-active" : "")"
+                                   aria-current="@(IsCurrentPage(link.Url) ? "page" : null)"
                                    @onclick="OnClose">
                                     @link.Label
                                 </a>

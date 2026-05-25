@@ -14,8 +14,8 @@
                     <path d="M2 4L6 8L10 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
             </button>
-            <a href="#" class="desktop-nav__link @(IsActive("/tips") ? "is-active" : "")">Tips &amp; råd</a>
-            <a href="#" class="desktop-nav__link @(IsActive("/om-oss") ? "is-active" : "")">Om oss</a>
+            <a href="#" class="desktop-nav__link @(IsActive("/tips") ? "is-active" : "")" aria-current="@(IsActive("/tips") ? "page" : null)">Tips &amp; råd</a>
+            <a href="#" class="desktop-nav__link @(IsActive("/om-oss") ? "is-active" : "")" aria-current="@(IsActive("/om-oss") ? "page" : null)">Om oss</a>
         </nav>
 
         <a href="/" class="desktop-nav__logo-link" aria-label="Svedea – gå till startsidan">
