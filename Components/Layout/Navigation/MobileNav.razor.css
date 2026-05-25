@@ -31,7 +31,7 @@
     align-items: center;
     justify-content: center;
     color: var(--color-white);
-    padding: 0.25rem;
+    padding: 0.625rem;
     background: none;
     border: none;
     cursor: pointer;
@@ -73,7 +73,7 @@
     border: none;
     color: var(--color-white);
     cursor: pointer;
-    padding: 0.25rem;
+    padding: 0.625rem;
     border-radius: 0.25rem;
 }
 
@@ -136,7 +136,7 @@
     border: none;
     color: var(--color-white);
     cursor: pointer;
-    padding: 0.25rem;
+    padding: 0.625rem;
     border-radius: 0.25rem;
 }
 
@@ -250,6 +250,12 @@
 .mobile-nav__top-link:hover {
     background-color: rgba(255, 255, 255, 0.07);
     border-left-color: var(--color-teal);
+}
+
+.mobile-nav__top-link.is-active {
+    border-left-color: var(--color-teal);
+    color: var(--color-teal);
+    font-weight: 700;
 }
 
 .mobile-nav__top-link:focus-visible {

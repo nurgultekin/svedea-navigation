@@ -5,13 +5,13 @@
 
 <div class="main-nav-wrapper" @onkeydown="HandleKeyDown">
     <DesktopNav
-        Categories="_categories"
+        PrimaryNav="_primaryNav"
         InsuranceOpen="_insuranceOpen"
         OnInsuranceToggle="ToggleInsurance"
         OnInsuranceClose="CloseInsurance" />
 
     <MobileNav
-        Categories="_categories"
+        PrimaryNav="_primaryNav"
         IsOpen="_mobileOpen"
         OnToggle="ToggleMobile"
         OnClose="CloseMobile" />
@@ -21,7 +21,8 @@
 {
     <div class="nav-backdrop" @onclick="CloseInsurance" aria-hidden="true"></div>
     <InsuranceDropdown
-        Categories="_categories"
+        Categories="_insuranceCategories"
+        InsuranceUrl="@_insuranceItem?.Url"
         IsOpen="_insuranceOpen"
         OnClose="CloseInsurance" />
 }
@@ -29,12 +30,16 @@
 @code {
     private bool _insuranceOpen = false;
     private bool _mobileOpen = false;
-    private List<NavCategory> _categories = NavMenuData.GetCategories();
+    private List<NavItem> _primaryNav = NavMenuData.GetPrimaryNav();
+    private NavItem? _insuranceItem;
+    private List<NavItem> _insuranceCategories = new();
     private DotNetObjectReference<MainNav>? _dotNetRef;
 
     protected override void OnInitialized()
     {
         Nav.LocationChanged += OnLocationChanged;
+        _insuranceItem = _primaryNav.FirstOrDefault(x => x.Children != null);
+        _insuranceCategories = _insuranceItem?.Children ?? new();
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)

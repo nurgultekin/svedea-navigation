@@ -5,7 +5,7 @@
             aria-expanded="@IsOpen.ToString().ToLower()"
             aria-controls="mobile-cat-@_id"
             @onclick="HandleToggle">
-        <span class="mobile-cat__name">@Category.Name</span>
+        <span class="mobile-cat__name">@Category.Label</span>
         <svg class="mobile-cat__chevron @(IsOpen ? "is-open" : "")"
              aria-hidden="true" width="16" height="16"
              viewBox="0 0 24 24" fill="none"
@@ -18,7 +18,7 @@
     <ul id="mobile-cat-@_id"
         class="mobile-cat__links @(IsOpen ? "is-open" : "")"
         role="list">
-        @foreach (var link in Category.Links)
+        @foreach (var link in Category.Children ?? new())
         {
             <li>
                 <a href="@link.Url"
@@ -32,14 +32,14 @@
 </div>
 
 @code {
-    [Parameter] public NavCategory Category { get; set; } = null!;
+    [Parameter] public NavItem Category { get; set; } = null!;
     [Parameter] public bool IsOpen { get; set; }
     [Parameter] public EventCallback<string> OnToggle { get; set; }
 
-    private string _id => Category.Name.Replace(" ", "-").ToLowerInvariant();
+    private string _id => Category.Label.Replace(" ", "-").ToLowerInvariant();
 
-    private void HandleToggle() => OnToggle.InvokeAsync(Category.Name);
+    private void HandleToggle() => OnToggle.InvokeAsync(Category.Label);
 
-    private bool IsCurrentPage(string url) =>
-        Nav.Uri.EndsWith(url, StringComparison.OrdinalIgnoreCase);
+    private bool IsCurrentPage(string? url) =>
+        url != null && Nav.Uri.EndsWith(url, StringComparison.OrdinalIgnoreCase);
 }

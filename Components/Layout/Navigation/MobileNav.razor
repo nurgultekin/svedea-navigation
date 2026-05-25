@@ -28,14 +28,12 @@
                 @onclick="OnToggle">
             @if (IsOpen)
             {
-                <!-- Close icon -->
                 <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M18 6L6 18M6 6l12 12"/>
                 </svg>
             }
             else
             {
-                <!-- Hamburger icon -->
                 <svg aria-hidden="true" width="24" height="24" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"/>
                 </svg>
@@ -88,31 +86,43 @@
             </div>
         </div>
 
-        <!-- Nav content -->
+        <!-- Nav content (fully data-driven) -->
         <nav class="mobile-nav__content" aria-label="Mobil navigation">
-
-            <!-- Försäkringar accordion parent -->
-            <div class="mobile-nav__section">
-                <div class="mobile-nav__section-label">Försäkringar</div>
-                @foreach (var category in Categories)
+            @foreach (var item in PrimaryNav)
+            {
+                if (item.Children != null)
                 {
-                    <MobileCategoryItem
-                        Category="category"
-                        IsOpen="_openCategories.Contains(category.Name)"
-                        OnToggle="ToggleCategory" />
+                    <div class="mobile-nav__section">
+                        <div class="mobile-nav__section-label">@item.Label</div>
+                        @foreach (var category in item.Children)
+                        {
+                            <MobileCategoryItem
+                                Category="category"
+                                IsOpen="_openCategories.Contains(category.Label)"
+                                OnToggle="ToggleCategory" />
+                        }
+                        @if (item.Url != null)
+                        {
+                            <a href="@item.Url" class="mobile-nav__all-link" @onclick="OnClose">
+                                <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                                </svg>
+                                Se alla @item.Label.ToLower()
+                            </a>
+                        }
+                    </div>
+                    <div class="mobile-nav__divider" role="separator"></div>
                 }
-                <a href="/forsakringar" class="mobile-nav__all-link" @onclick="OnClose">
-                    <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M5 12h14M12 5l7 7-7 7"/>
-                    </svg>
-                    Se alla försäkringar
-                </a>
-            </div>
-
-            <div class="mobile-nav__divider" role="separator"></div>
-
-            <a href="#" class="mobile-nav__top-link" @onclick="OnClose">Tips &amp; råd</a>
-            <a href="#" class="mobile-nav__top-link" @onclick="OnClose">Om oss</a>
+                else
+                {
+                    <a href="@item.Url"
+                       class="mobile-nav__top-link @(IsActive(item.Url!) ? "is-active" : "")"
+                       aria-current="@(IsActive(item.Url!) ? "page" : null)"
+                       @onclick="OnClose">
+                        @item.Label
+                    </a>
+                }
+            }
         </nav>
 
         <!-- Bottom CTAs -->
@@ -130,13 +140,16 @@
 </div>
 
 @code {
-    [Parameter] public List<NavCategory> Categories { get; set; } = new();
+    [Parameter] public List<NavItem> PrimaryNav { get; set; } = new();
     [Parameter] public bool IsOpen { get; set; }
     [Parameter] public EventCallback OnToggle { get; set; }
     [Parameter] public EventCallback OnClose { get; set; }
 
     private HashSet<string> _openCategories = new();
     private bool _prevIsOpen;
+
+    private bool IsActive(string path) =>
+        Nav.Uri.Contains(path, StringComparison.OrdinalIgnoreCase);
 
     protected override void OnParametersSet()
     {
