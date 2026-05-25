@@ -32,6 +32,30 @@
 html, body {
     font-family: var(--font-primary);
     color: var(--color-body);
+    margin: 0;
+    padding: 0;
+}
+
+/* WCAG 2.4.1 — skip to main content */
+.skip-link {
+    position: absolute;
+    left: -9999px;
+    top: 1rem;
+    z-index: 9999;
+    padding: 0.625rem 1.25rem;
+    background-color: var(--color-navy);
+    color: var(--color-white);
+    font-family: var(--font-primary);
+    font-size: var(--nav-font-size);
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: var(--radius-pill);
+    border: 2px solid var(--color-white);
+    white-space: nowrap;
+}
+
+.skip-link:focus {
+    left: 1rem;
 }
 
 a {

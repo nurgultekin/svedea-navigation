@@ -1,0 +1,60 @@
+@rendermode InteractiveServer
+@inject NavigationManager Nav
+@implements IDisposable
+
+<div class="main-nav-wrapper" @onkeydown="HandleKeyDown">
+    <DesktopNav
+        Categories="_categories"
+        InsuranceOpen="_insuranceOpen"
+        OnInsuranceToggle="ToggleInsurance"
+        OnInsuranceClose="CloseInsurance" />
+
+    <MobileNav
+        Categories="_categories"
+        IsOpen="_mobileOpen"
+        OnToggle="ToggleMobile"
+        OnClose="CloseMobile" />
+</div>
+
+@if (_insuranceOpen)
+{
+    <div class="nav-backdrop" @onclick="CloseInsurance" aria-hidden="true"></div>
+    <InsuranceDropdown
+        Categories="_categories"
+        IsOpen="_insuranceOpen"
+        OnClose="CloseInsurance" />
+}
+
+@code {
+    private bool _insuranceOpen = false;
+    private bool _mobileOpen = false;
+    private List<NavCategory> _categories = NavMenuData.GetCategories();
+
+    protected override void OnInitialized()
+    {
+        Nav.LocationChanged += OnLocationChanged;
+    }
+
+    private void OnLocationChanged(object? sender, Microsoft.AspNetCore.Components.Routing.LocationChangedEventArgs e)
+    {
+        _mobileOpen = false;
+        _insuranceOpen = false;
+        InvokeAsync(StateHasChanged);
+    }
+
+    private void ToggleInsurance() => _insuranceOpen = !_insuranceOpen;
+    private void CloseInsurance() => _insuranceOpen = false;
+    private void ToggleMobile() => _mobileOpen = !_mobileOpen;
+    private void CloseMobile() => _mobileOpen = false;
+
+    private void HandleKeyDown(KeyboardEventArgs e)
+    {
+        if (e.Key == "Escape")
+        {
+            _insuranceOpen = false;
+            _mobileOpen = false;
+        }
+    }
+
+    public void Dispose() => Nav.LocationChanged -= OnLocationChanged;
+}

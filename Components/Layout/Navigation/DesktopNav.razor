@@ -1,0 +1,67 @@
+@inject NavigationManager Nav
+
+<header class="desktop-nav" role="banner">
+    <div class="desktop-nav__inner">
+
+        <nav class="desktop-nav__left" aria-label="Primär navigation">
+            <button class="desktop-nav__insurance-btn @(InsuranceOpen ? "is-open" : "")"
+                    aria-expanded="@InsuranceOpen.ToString().ToLower()"
+                    aria-controls="insurance-dropdown"
+                    @onclick="OnInsuranceToggle"
+                    @onkeydown="HandleKeyDown">
+                Försäkringar
+                <svg class="chevron" aria-hidden="true" width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M2 4L6 8L10 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+            <a href="#" class="desktop-nav__link @(IsActive("/tips") ? "is-active" : "")">Tips &amp; råd</a>
+            <a href="#" class="desktop-nav__link @(IsActive("/om-oss") ? "is-active" : "")">Om oss</a>
+        </nav>
+
+        <a href="/" class="desktop-nav__logo-link" aria-label="Svedea – gå till startsidan">
+            <img src="/media/svedea_logo_white.png" alt="Svedea" class="desktop-nav__logo" />
+            <span class="desktop-nav__tagline">Försäkringar som gör skillnad</span>
+        </a>
+
+        <div class="desktop-nav__right">
+            <a href="#" class="desktop-nav__action-link">
+                <svg aria-hidden="true" class="desktop-nav__icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                    <circle cx="12" cy="7" r="4"/>
+                </svg>
+                Logga in
+            </a>
+            <a href="#" class="desktop-nav__action-link">
+                <svg aria-hidden="true" class="desktop-nav__icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 9.5a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.77a16 16 0 0 0 6.29 6.29l1.06-.94a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
+                </svg>
+                Kontakt
+            </a>
+            <button class="desktop-nav__action-link desktop-nav__search-btn" aria-label="Sök">
+                <svg aria-hidden="true" class="desktop-nav__icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="11" cy="11" r="8"/>
+                    <path d="m21 21-4.35-4.35"/>
+                </svg>
+                Sök
+            </button>
+            <a href="#" class="desktop-nav__cta">Anmäl skada</a>
+        </div>
+
+    </div>
+</header>
+
+@code {
+    [Parameter] public List<NavCategory> Categories { get; set; } = new();
+    [Parameter] public bool InsuranceOpen { get; set; }
+    [Parameter] public EventCallback OnInsuranceToggle { get; set; }
+    [Parameter] public EventCallback OnInsuranceClose { get; set; }
+
+    private bool IsActive(string path) =>
+        Nav.Uri.Contains(path, StringComparison.OrdinalIgnoreCase);
+
+    private void HandleKeyDown(KeyboardEventArgs e)
+    {
+        if (e.Key == "Escape")
+            OnInsuranceClose.InvokeAsync();
+    }
+}

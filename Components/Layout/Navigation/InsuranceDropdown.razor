@@ -1,0 +1,54 @@
+@inject NavigationManager Nav
+
+<div id="insurance-dropdown"
+     class="insurance-dropdown @(IsOpen ? "is-open" : "")"
+     role="region"
+     aria-label="Försäkringar"
+     @onkeydown="HandleKeyDown">
+
+    <div class="insurance-dropdown__inner">
+        <div class="insurance-dropdown__grid">
+            @foreach (var category in Categories)
+            {
+                <div class="insurance-dropdown__category">
+                    <h3 class="insurance-dropdown__heading">@category.Name</h3>
+                    <ul class="insurance-dropdown__links">
+                        @foreach (var link in category.Links)
+                        {
+                            <li>
+                                <a href="@link.Url"
+                                   class="insurance-dropdown__link @(IsCurrentPage(link.Url) ? "is-active" : "")"
+                                   @onclick="OnClose">
+                                    @link.Label
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            }
+        </div>
+        <div class="insurance-dropdown__footer">
+            <a href="/forsakringar" class="insurance-dropdown__all-link" @onclick="OnClose">
+                Se alla försäkringar
+                <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+            </a>
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter] public List<NavCategory> Categories { get; set; } = new();
+    [Parameter] public bool IsOpen { get; set; }
+    [Parameter] public EventCallback OnClose { get; set; }
+
+    private bool IsCurrentPage(string url) =>
+        Nav.Uri.EndsWith(url, StringComparison.OrdinalIgnoreCase);
+
+    private void HandleKeyDown(KeyboardEventArgs e)
+    {
+        if (e.Key == "Escape")
+            OnClose.InvokeAsync();
+    }
+}

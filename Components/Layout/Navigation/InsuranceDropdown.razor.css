@@ -1,0 +1,108 @@
+.insurance-dropdown {
+    display: none;
+    position: fixed;
+    top: var(--nav-height);
+    left: 0;
+    right: 0;
+    z-index: 98;
+    background-color: color-mix(in srgb, var(--color-teal) 25%, white);
+    border-top: 1px solid var(--color-border);
+    box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.12);
+}
+
+.insurance-dropdown.is-open {
+    display: block;
+}
+
+.insurance-dropdown__inner {
+    max-width: 100rem;
+    margin-inline: auto;
+    padding: 2rem clamp(1.5rem, 3vw, 5rem);
+}
+
+.insurance-dropdown__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+}
+
+.insurance-dropdown__heading {
+    font-family: var(--font-primary);
+    font-size: var(--nav-font-size);
+    font-weight: 700;
+    color: var(--color-navy);
+    margin: 0 0 0.75rem 0;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--color-teal);
+}
+
+.insurance-dropdown__links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+}
+
+.insurance-dropdown__link {
+    font-family: var(--font-primary);
+    font-size: var(--nav-small-font);
+    color: var(--color-link-dark);
+    text-decoration: none;
+    display: block;
+    padding: 0.2rem 0;
+    border-left: var(--active-border-width) solid transparent;
+    padding-left: 0.5rem;
+}
+
+.insurance-dropdown__link:hover {
+    color: var(--color-navy);
+    border-left-color: var(--color-teal);
+}
+
+.insurance-dropdown__link.is-active {
+    color: var(--color-navy);
+    font-weight: 700;
+    border-left-color: var(--color-teal);
+}
+
+.insurance-dropdown__link:focus-visible {
+    outline: var(--focus-outline) solid var(--color-focus-ring);
+    outline-offset: 0.125rem;
+    border-radius: 0.125rem;
+}
+
+.insurance-dropdown__footer {
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--color-border);
+}
+
+.insurance-dropdown__all-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    font-family: var(--font-primary);
+    font-size: var(--nav-font-size);
+    font-weight: 600;
+    color: var(--color-navy);
+    text-decoration: none;
+}
+
+.insurance-dropdown__all-link:hover {
+    color: var(--color-navy-dark);
+    text-decoration: underline;
+}
+
+.insurance-dropdown__all-link:focus-visible {
+    outline: var(--focus-outline) solid var(--color-focus-ring);
+    outline-offset: 0.25rem;
+    border-radius: 0.125rem;
+}
+
+@media (max-width: 79.99em) {
+    .insurance-dropdown__grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}

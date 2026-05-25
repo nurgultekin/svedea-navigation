@@ -1,0 +1,206 @@
+.desktop-nav {
+    display: none;
+    background-color: var(--color-navy);
+    width: 100%;
+    height: var(--nav-height);
+}
+
+.desktop-nav__inner {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    height: 100%;
+    max-width: 100rem;
+    margin-inline: auto;
+    padding-inline: clamp(1.5rem, 3vw, 5rem);
+    gap: var(--nav-gap);
+}
+
+/* ── LEFT ── */
+.desktop-nav__left {
+    display: flex;
+    align-items: center;
+    gap: var(--nav-gap);
+}
+
+.desktop-nav__insurance-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+    background: none;
+    border: none;
+    color: var(--color-white);
+    font-family: var(--font-primary);
+    font-size: var(--nav-font-size);
+    font-weight: 500;
+    cursor: pointer;
+    padding: 0;
+    text-decoration: none;
+    position: relative;
+}
+
+.desktop-nav__insurance-btn::after {
+    content: '';
+    position: absolute;
+    bottom: -0.375rem;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--color-teal);
+    transform: scaleX(0);
+    transition: transform 0.15s ease;
+}
+
+.desktop-nav__insurance-btn:hover::after,
+.desktop-nav__insurance-btn.is-open::after {
+    transform: scaleX(1);
+}
+
+.desktop-nav__insurance-btn:focus-visible {
+    outline: var(--focus-outline) solid var(--color-focus-ring);
+    outline-offset: 0.25rem;
+    border-radius: 0.125rem;
+}
+
+.chevron {
+    transition: transform 0.2s ease;
+    flex-shrink: 0;
+}
+
+.desktop-nav__insurance-btn.is-open .chevron {
+    transform: rotate(180deg);
+}
+
+.desktop-nav__link {
+    color: var(--color-white);
+    font-family: var(--font-primary);
+    font-size: var(--nav-font-size);
+    font-weight: 500;
+    text-decoration: none;
+    position: relative;
+}
+
+.desktop-nav__link::after {
+    content: '';
+    position: absolute;
+    bottom: -0.375rem;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--color-teal);
+    transform: scaleX(0);
+    transition: transform 0.15s ease;
+}
+
+.desktop-nav__link:hover::after,
+.desktop-nav__link.is-active::after {
+    transform: scaleX(1);
+}
+
+.desktop-nav__link.is-active {
+    font-weight: 700;
+}
+
+.desktop-nav__link:focus-visible {
+    outline: var(--focus-outline) solid var(--color-focus-ring);
+    outline-offset: 0.25rem;
+    border-radius: 0.125rem;
+}
+
+/* ── CENTER (logo) ── */
+.desktop-nav__logo-link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    gap: 0.25rem;
+}
+
+.desktop-nav__logo-link:focus-visible {
+    outline: var(--focus-outline) solid var(--color-focus-ring);
+    outline-offset: 0.25rem;
+    border-radius: 0.125rem;
+}
+
+.desktop-nav__logo {
+    height: 2.25rem;
+    width: auto;
+}
+
+.desktop-nav__tagline {
+    font-family: var(--font-secondary);
+    font-size: 0.7rem;
+    color: var(--color-teal);
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+}
+
+/* ── RIGHT ── */
+.desktop-nav__right {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 1.25rem;
+}
+
+.desktop-nav__action-link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.2rem;
+    color: var(--color-white);
+    font-family: var(--font-primary);
+    font-size: var(--nav-small-font);
+    font-weight: 500;
+    text-decoration: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    white-space: nowrap;
+}
+
+.desktop-nav__action-link:hover {
+    color: var(--color-teal);
+}
+
+.desktop-nav__action-link:focus-visible {
+    outline: var(--focus-outline) solid var(--color-focus-ring);
+    outline-offset: 0.25rem;
+    border-radius: 0.125rem;
+}
+
+.desktop-nav__icon {
+    flex-shrink: 0;
+}
+
+.desktop-nav__cta {
+    color: var(--color-white);
+    font-family: var(--font-primary);
+    font-size: var(--nav-font-size);
+    font-weight: 500;
+    text-decoration: none;
+    border: 1.5px solid var(--color-cta-border);
+    border-radius: var(--radius-pill);
+    padding: 0.5rem 1.25rem;
+    transition: var(--transition-instant);
+    white-space: nowrap;
+}
+
+.desktop-nav__cta:hover {
+    background-color: var(--color-white);
+    color: var(--color-navy);
+    transition: var(--transition-instant);
+}
+
+.desktop-nav__cta:focus-visible {
+    outline: var(--focus-outline) solid var(--color-focus-ring);
+    outline-offset: 0.25rem;
+}
+
+/* ── Responsive visibility ── */
+@media (min-width: 62em) {
+    .desktop-nav {
+        display: block;
+    }
+}
