@@ -56,12 +56,6 @@
     color: var(--nav-link-color-active);
 }
 
-.nav-link:focus-visible {
-    outline: var(--focus-outline) solid var(--color-focus-ring);
-    outline-offset: 0.25rem;
-    border-radius: 0.125rem;
-}
-
 /* ── CENTER (logo) ── */
 .desktop-nav__logo-link {
     flex-direction: column;
@@ -75,7 +69,7 @@
 
 .nav__tagline {
     font-family: var(--font-secondary);
-    font-size: 0.7rem;
+    font-size: var(--text-xs);
     color: var(--color-teal);
     letter-spacing: 0.04em;
     white-space: nowrap;
@@ -85,7 +79,6 @@
 .desktop-nav .btn--icon {
     flex-direction: column;
     gap: 0.2rem;
-    font-size: var(--nav-small-font);
     padding: 0.75rem 0.5rem;
     white-space: nowrap;
 }

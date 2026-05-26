@@ -80,7 +80,7 @@
         <!-- Search -->
         <div class="mobile-nav__search">
             <label for="mobile-search" class="sr-only">Sök</label>
-            <div class="mobile-nav__search-wrap @(_searchFocused && SearchResults.Any() ? "has-results" : "")">
+            <div class="mobile-nav__search-wrap search-wrap @(_searchFocused && SearchResults.Any() ? "has-results" : "")">
                 <div class="mobile-nav__search-row">
                     <svg aria-hidden="true" class="mobile-nav__search-icon" width="18" height="18" viewBox="0 0 24 24"
                          fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -99,7 +99,7 @@
                         @foreach (var r in SearchResults)
                         {
                             <li>
-                                <a href="@r.Url" class="mobile-nav__search-result-item" role="option" @onclick="OnClose">
+                                <a href="@r.Url" class="mobile-nav__search-result-item focus-ring" role="option" @onclick="OnClose">
                                     @r.Label
                                 </a>
                             </li>
@@ -134,7 +134,7 @@
                             }
                             @if (item.Url != null)
                             {
-                                <a href="@item.Url" class="mobile-nav__all-link" @onclick="OnClose">
+                                <a href="@item.Url" class="link--see-all focus-ring" @onclick="OnClose">
                                     <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none"
                                          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                         <path d="M5 12h14M12 5l7 7-7 7" />
@@ -148,7 +148,7 @@
                 }
                 else
                 {
-                    <a href="@item.Url" class="nav-link mobile-nav__top-link @(IsActive(item.Url!) ? "is-active" : "")"
+                    <a href="@item.Url" class="nav-link mobile-nav__top-link focus-ring @(IsActive(item.Url!) ? "is-active" : "")"
                        aria-current="@(IsActive(item.Url!) ? "page" : null)" @onclick="OnClose">
                         <span class="btn-label btn-label--xl">@item.Label</span>
                     </a>

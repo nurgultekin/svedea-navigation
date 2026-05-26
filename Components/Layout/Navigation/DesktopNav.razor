@@ -22,7 +22,7 @@
                 }
                 else
                 {
-                    <a href="@item.Url" class="nav-link @(IsActive(item.Url!) ? "is-active" : "")"
+                    <a href="@item.Url" class="nav-link focus-ring @(IsActive(item.Url!) ? "is-active" : "")"
                        aria-current="@(IsActive(item.Url!) ? "page" : null)">
                         @item.Label
                     </a>

@@ -30,7 +30,7 @@
             }
             <li>
                 <a href="@link.Url"
-                   class="nav__link--sub @(IsCurrentPage(link.Url) ? "is-active" : "")"
+                   class="nav__sub-link focus-ring @(IsCurrentPage(link.Url) ? "is-active" : "")"
                    aria-current="@(IsCurrentPage(link.Url) ? "page" : null)">
                     <span class="btn-label btn-label--md">@link.Label</span>
                 </a>
