@@ -1,0 +1,45 @@
+@inject NavigationManager Nav
+
+<div class="mobile-cat">
+    <button class="btn btn--icon nav__category-btn"
+            aria-expanded="@IsOpen.ToString().ToLower()"
+            aria-controls="mobile-cat-@_id"
+            @onclick="HandleToggle">
+        <span class="mobile-cat__name btn-label btn-label--md">@Category.Label</span>
+        <svg class="chevron @(IsOpen ? "is-open" : "")"
+             aria-hidden="true" width="16" height="16"
+             viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 9l6 6 6-6"/>
+        </svg>
+    </button>
+
+    <ul id="mobile-cat-@_id"
+        class="mobile-cat__links @(IsOpen ? "is-open" : "")"
+        role="list">
+        @foreach (var link in Category.Children ?? new())
+        {
+            <li>
+                <a href="@link.Url"
+                   class="nav__link--sub @(IsCurrentPage(link.Url) ? "is-active" : "")"
+                   aria-current="@(IsCurrentPage(link.Url) ? "page" : null)">
+                    @link.Label
+                </a>
+            </li>
+        }
+    </ul>
+</div>
+
+@code {
+    [Parameter] public NavItem Category { get; set; } = null!;
+    [Parameter] public bool IsOpen { get; set; }
+    [Parameter] public EventCallback<string> OnToggle { get; set; }
+
+    private string _id => Category.Label.Replace(" ", "-").ToLowerInvariant();
+
+    private void HandleToggle() => OnToggle.InvokeAsync(Category.Label);
+
+    private bool IsCurrentPage(string? url) =>
+        url != null && Nav.Uri.EndsWith(url, StringComparison.OrdinalIgnoreCase);
+}
