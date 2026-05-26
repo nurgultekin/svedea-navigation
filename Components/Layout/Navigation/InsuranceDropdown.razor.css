@@ -44,29 +44,12 @@
     font-size: 1.125rem;
     font-weight: 500;
     color: var(--color-navy);
-    text-decoration: none;
     margin: 0 0 0.75rem 0;
     padding-bottom: 0.5rem;
 }
 
 .insurance-dropdown__icon {
     flex-shrink: 0;
-}
-
-.insurance-dropdown__heading:hover {
-    color: var(--color-navy-dark);
-    text-decoration: underline;
-}
-
-.insurance-dropdown__heading.is-active {
-    color: var(--color-navy-dark);
-    border-bottom-color: var(--color-navy);
-}
-
-.insurance-dropdown__heading:focus-visible {
-    outline: var(--focus-outline) solid var(--color-focus-ring);
-    outline-offset: 0.125rem;
-    border-radius: 0.125rem;
 }
 
 .insurance-dropdown__links {
@@ -139,4 +122,9 @@
     .insurance-dropdown__grid {
         grid-template-columns: repeat(3, 1fr);
     }
+}
+.insurance-dropdown__links {
+    --stagger-base: 0.12s;
+    --stagger-dur:  0.22s;
+    --stagger-inc:  0.05s;
 }

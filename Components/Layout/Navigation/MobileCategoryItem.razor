@@ -20,7 +20,7 @@
     </button>
 
     <ul id="mobile-cat-@_id"
-        class="mobile-cat__links @(IsOpen ? "is-open" : "")"
+        class="mobile-cat__links nav-stagger @(IsOpen ? "is-open" : "")"
         role="list">
         @foreach (var (link, index) in (Category.Children ?? new()).Select((l, i) => (l, i)))
         {

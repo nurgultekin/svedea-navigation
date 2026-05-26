@@ -126,7 +126,7 @@
                                 <path d="M6 9l6 6 6-6" />
                             </svg>
                         </button>
-                        <div id="mobile-insurance-panel" class="mobile-nav__dropdown-panel @(_insuranceOpen ? "is-open" : "")">
+                        <div id="mobile-insurance-panel" class="mobile-nav__dropdown-panel nav-stagger @(_insuranceOpen ? "is-open" : "")">
                             @foreach (var category in item.Children)
                             {
                                 <MobileCategoryItem Category="category" IsOpen="_openCategory == category.Label"
@@ -217,8 +217,13 @@
         await Task.Delay(150);
         _searchFocused = false;
     }
-
-    private void ToggleInsurance() => _insuranceOpen = !_insuranceOpen;
+<!-- clear _openCategory when dropdown is closed; reset state -->
+    private void ToggleInsurance()
+    {
+        _insuranceOpen = !_insuranceOpen;
+        if (!_insuranceOpen)
+            _openCategory = null;
+    }
 
     private void ToggleCategory(string name) =>
         _openCategory = _openCategory == name ? null : name;

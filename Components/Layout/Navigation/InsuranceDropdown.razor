@@ -11,17 +11,14 @@
             @foreach (var category in Categories)
             {
                 <div class="insurance-dropdown__category">
-                    <a href="@category.Url"
-                       class="insurance-dropdown__heading @(IsCurrentPage(category.Url) ? "is-active" : "")"
-                       aria-current="@(IsCurrentPage(category.Url) ? "page" : null)"
-                       @onclick="OnClose">
+                    <div class="insurance-dropdown__heading">
                         @if (category.IconUrl != null)
                         {
                             <img src="/@category.IconUrl" alt="" aria-hidden="true" class="insurance-dropdown__icon" width="22" height="22" />
                         }
                         @category.Label
-                    </a>
-                    <ul class="insurance-dropdown__links">
+                    </div>
+                    <ul class="insurance-dropdown__links nav-stagger @(IsOpen ? "is-open" : "")">
                         @foreach (var link in category.Children ?? new())
                         {
                             <li>

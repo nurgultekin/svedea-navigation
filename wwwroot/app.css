@@ -245,3 +245,31 @@ h1:focus {
     white-space: nowrap;
     border: 0;
 }
+/* staggered slide & fade in animation from right (accordion list & dropdown items)*/
+@keyframes navLinkSlideIn {
+    from {
+        opacity: 0;
+        transform: translateX(14px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* nav-stagger: add to any list/container whose direct children should stagger in.
+   Set --stagger-base, --stagger-dur, --stagger-inc on the container to override timing. */
+.nav-stagger > * {
+    opacity: 0;
+    transform: translateX(14px);
+    transition: opacity 0.25s ease-in, transform 0.25s ease-out;
+}
+
+.nav-stagger.is-open > *:nth-child(1) { animation: navLinkSlideIn var(--stagger-dur, 0.2s) ease forwards var(--stagger-base, 0.06s); }
+.nav-stagger.is-open > *:nth-child(2) { animation: navLinkSlideIn var(--stagger-dur, 0.2s) ease forwards calc(var(--stagger-base, 0.06s) + var(--stagger-inc, 0.04s)); }
+.nav-stagger.is-open > *:nth-child(3) { animation: navLinkSlideIn var(--stagger-dur, 0.2s) ease forwards calc(var(--stagger-base, 0.06s) + 2 * var(--stagger-inc, 0.04s)); }
+.nav-stagger.is-open > *:nth-child(4) { animation: navLinkSlideIn var(--stagger-dur, 0.2s) ease forwards calc(var(--stagger-base, 0.06s) + 3 * var(--stagger-inc, 0.04s)); }
+.nav-stagger.is-open > *:nth-child(5) { animation: navLinkSlideIn var(--stagger-dur, 0.2s) ease forwards calc(var(--stagger-base, 0.06s) + 4 * var(--stagger-inc, 0.04s)); }
+.nav-stagger.is-open > *:nth-child(6) { animation: navLinkSlideIn var(--stagger-dur, 0.2s) ease forwards calc(var(--stagger-base, 0.06s) + 5 * var(--stagger-inc, 0.04s)); }
+.nav-stagger.is-open > *:nth-child(7) { animation: navLinkSlideIn var(--stagger-dur, 0.2s) ease forwards calc(var(--stagger-base, 0.06s) + 6 * var(--stagger-inc, 0.04s)); }
+.nav-stagger.is-open > *:nth-child(8) { animation: navLinkSlideIn var(--stagger-dur, 0.2s) ease forwards calc(var(--stagger-base, 0.06s) + 7 * var(--stagger-inc, 0.04s)); }

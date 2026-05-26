@@ -253,6 +253,7 @@
     transition: max-height 0.3s ease, visibility 0s linear 0.3s;
     border-left: 3px solid var(--color-teal);
     margin-left:1vw;
+    --stagger-base: 0.1s;
 }
 
 .mobile-nav__dropdown-panel.is-open {
@@ -293,4 +294,19 @@
         z-index: 199;
         background-color: rgba(0, 0, 0, 0.5);
     }
+}
+/* staggered slide in from right + fade in animation (accordion list & dropdown items)*/ 
+.mobile-nav__content > .mobile-nav__dropdown .mobile-nav__top-link,
+.mobile-nav__content > a.mobile-nav__top-link {
+    opacity: 0;
+}
+
+.mobile-nav__overlay.is-open .mobile-nav__content > .mobile-nav__dropdown .mobile-nav__top-link {
+    animation: navLinkSlideIn 0.22s ease forwards 0.2s;
+}
+.mobile-nav__overlay.is-open .mobile-nav__content > a:nth-of-type(1) {
+    animation: navLinkSlideIn 0.22s ease forwards 0.28s;
+}
+.mobile-nav__overlay.is-open .mobile-nav__content > a:nth-of-type(2) {
+    animation: navLinkSlideIn 0.22s ease forwards 0.36s;
 }
