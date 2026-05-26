@@ -8,7 +8,9 @@
         PrimaryNav="_primaryNav"
         InsuranceOpen="_insuranceOpen"
         OnInsuranceToggle="ToggleInsurance"
-        OnInsuranceClose="CloseInsurance" />
+        OnInsuranceClose="CloseInsurance"
+        SearchOpen="_searchOpen"
+        OnSearchToggle="ToggleSearch" />
 
     <MobileNav
         PrimaryNav="_primaryNav"
@@ -27,9 +29,18 @@
         OnClose="CloseInsurance" />
 }
 
+@if (_searchOpen)
+{
+    <div class="nav-backdrop" @onclick="CloseSearch" aria-hidden="true"></div>
+}
+<SearchPanel IsOpen="_searchOpen"
+             OnClose="CloseSearch"
+             NavTree="_primaryNav" />
+
 @code {
     private bool _insuranceOpen = false;
     private bool _mobileOpen = false;
+    private bool _searchOpen = false;
     private List<NavItem> _primaryNav = NavMenuData.GetPrimaryNav();
     private NavItem? _insuranceItem;
     private List<NavItem> _insuranceCategories = new();
@@ -56,6 +67,7 @@
     {
         _mobileOpen = false;
         _insuranceOpen = false;
+        _searchOpen = false;
         InvokeAsync(StateHasChanged);
     }
 
@@ -63,13 +75,24 @@
     {
         _mobileOpen = false;
         _insuranceOpen = false;
+        _searchOpen = false;
         InvokeAsync(StateHasChanged);
     }
 
-    private void ToggleInsurance() => _insuranceOpen = !_insuranceOpen;
+    private void ToggleInsurance()
+    {
+        _insuranceOpen = !_insuranceOpen;
+        if (_insuranceOpen) _searchOpen = false;
+    }
     private void CloseInsurance() => _insuranceOpen = false;
     private void ToggleMobile() => _mobileOpen = !_mobileOpen;
     private void CloseMobile() => _mobileOpen = false;
+    private void ToggleSearch()
+    {
+        _searchOpen = !_searchOpen;
+        if (_searchOpen) _insuranceOpen = false;
+    }
+    private void CloseSearch() => _searchOpen = false;
 
     private void HandleKeyDown(KeyboardEventArgs e)
     {
@@ -77,6 +100,7 @@
         {
             _insuranceOpen = false;
             _mobileOpen = false;
+            _searchOpen = false;
         }
     }
 

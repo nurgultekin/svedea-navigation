@@ -52,13 +52,28 @@
                 </svg>
                 <span class="btn-label btn-label--sm">Kontakt</span>
             </a>
-            <button class="btn btn--icon" aria-label="Sök">
-                <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                     stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                    <circle cx="11" cy="11" r="8" />
-                    <path d="m21 21-4.35-4.35" />
-                </svg>
-                <span class="btn-label btn-label--sm">Sök</span>
+            <button class="btn btn--icon"
+                    aria-label="@(SearchOpen ? "Stäng sök" : "Sök")"
+                    aria-expanded="@SearchOpen.ToString().ToLower()"
+                    aria-controls="desktop-search"
+                    @onclick="OnSearchToggle">
+                @if (SearchOpen)
+                {
+                    <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                         stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M18 6 6 18M6 6l12 12" />
+                    </svg>
+                    <span class="btn-label btn-label--sm">Stäng</span>
+                }
+                else
+                {
+                    <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                         stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8" />
+                        <path d="m21 21-4.35-4.35" />
+                    </svg>
+                    <span class="btn-label btn-label--sm">Sök</span>
+                }
             </button>
             <a href="#" class="btn btn--outline"><span class="btn-label btn-label--md">Anmäl skada</span></a>
         </div>
@@ -71,6 +86,8 @@
     [Parameter] public bool InsuranceOpen { get; set; }
     [Parameter] public EventCallback OnInsuranceToggle { get; set; }
     [Parameter] public EventCallback OnInsuranceClose { get; set; }
+    [Parameter] public bool SearchOpen { get; set; }
+    [Parameter] public EventCallback OnSearchToggle { get; set; }
 
     private bool IsActive(string path) =>
         Nav.Uri.Contains(path, StringComparison.OrdinalIgnoreCase);
