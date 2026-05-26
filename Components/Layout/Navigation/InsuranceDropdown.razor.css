@@ -76,13 +76,13 @@
 
 .insurance-dropdown__link:hover {
     color: var(--color-navy);
-    border-left-color: var(--color-teal);
+    border-left-color: var(--nav-link-indicator);
 }
 
 .insurance-dropdown__link.is-active {
     color: var(--color-navy);
     font-weight: 700;
-    border-left-color: var(--color-teal);
+    border-left-color: var(--nav-link-indicator);
 }
 
 .insurance-dropdown__link:focus-visible {

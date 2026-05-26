@@ -1,24 +1,19 @@
-.mobile-cat__toggle {
+/* Category accordion toggle — btn + btn--icon reset, overridden for full-width block use */
+.nav__category-btn {
     width: 100%;
-    display: flex;
-    align-items: center;
     justify-content: space-between;
-    background: none;
-    border: none;
-    color: var(--color-white);
-    font-family: var(--font-primary);
-    font-size: var(--nav-font-size);
-    font-weight: 500;
-    padding: 0.875rem 1.5rem;
-    cursor: pointer;
     text-align: left;
+    padding: 0.875rem 1.5rem;
+    border-radius: 0;
+    font-size: var(--nav-font-size);
 }
 
-.mobile-cat__toggle:hover {
+.nav__category-btn:hover {
     background-color: rgba(255, 255, 255, 0.07);
+    color: inherit; /* suppress btn--icon teal hover in this context */
 }
 
-.mobile-cat__toggle:focus-visible {
+.nav__category-btn:focus-visible {
     outline: var(--focus-outline) solid var(--color-focus-ring);
     outline-offset: -2px;
 }
@@ -27,14 +22,9 @@
     flex: 1;
 }
 
-.mobile-cat__chevron {
-    transition: transform 0.2s ease;
-    flex-shrink: 0;
+/* Mobile category chevrons are teal — contextual color only */
+.nav__category-btn .chevron {
     color: var(--color-teal);
-}
-
-.mobile-cat__chevron.is-open {
-    transform: rotate(180deg);
 }
 
 .mobile-cat__links {
@@ -54,7 +44,7 @@
     transition: max-height 0.25s ease, visibility 0s;
 }
 
-.mobile-cat__link {
+.nav__link--sub {
     display: block;
     padding: 0.75rem 1.5rem 0.75rem 2rem;
     font-family: var(--font-primary);
@@ -64,18 +54,18 @@
     border-left: var(--active-border-width) solid transparent;
 }
 
-.mobile-cat__link:hover {
+.nav__link--sub:hover {
     color: var(--color-white);
     background-color: rgba(255, 255, 255, 0.07);
 }
 
-.mobile-cat__link.is-active {
-    color: var(--color-teal);
-    border-left-color: var(--color-teal);
+.nav__link--sub.is-active {
+    color: var(--nav-link-color-active);
+    border-left-color: var(--nav-link-indicator);
     font-weight: 700;
 }
 
-.mobile-cat__link:focus-visible {
+.nav__link--sub:focus-visible {
     outline: var(--focus-outline) solid var(--color-focus-ring);
     outline-offset: -2px;
 }
