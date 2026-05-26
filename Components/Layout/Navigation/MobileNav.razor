@@ -83,14 +83,14 @@
             <div class="mobile-nav__search-wrap @(_searchFocused && SearchResults.Any() ? "has-results" : "")">
                 <div class="mobile-nav__search-row">
                     <svg aria-hidden="true" class="mobile-nav__search-icon" width="18" height="18" viewBox="0 0 24 24"
-                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                         stroke-linejoin="round">
                         <circle cx="11" cy="11" r="8" />
                         <path d="m21 21-4.35-4.35" />
                     </svg>
                     <input id="mobile-search" type="search" placeholder="Sök på svedea..."
                            class="mobile-nav__search-input"
-                           @oninput="e => _searchQuery = e.Value?.ToString() ?? string.Empty"
-                           @onfocus="OnSearchFocus"
+                           @oninput="e => _searchQuery = e.Value?.ToString() ?? string.Empty" @onfocus="OnSearchFocus"
                            @onblur="OnSearchBlur" />
                 </div>
                 @if (_searchFocused && SearchResults.Any())
@@ -99,8 +99,7 @@
                         @foreach (var r in SearchResults)
                         {
                             <li>
-                                <a href="@r.Url" class="mobile-nav__search-result-item"
-                                   role="option" @onclick="OnClose">
+                                <a href="@r.Url" class="mobile-nav__search-result-item" role="option" @onclick="OnClose">
                                     @r.Label
                                 </a>
                             </li>
@@ -159,8 +158,8 @@
 
         <!-- Bottom CTAs -->
         <div class="mobile-nav__footer">
-            <a href="#" class="btn btn--primary"><span class="btn-label btn-label--md">Anmäl skada</span></a>
-            <a href="#" class="btn btn--outline"><span class="btn-label btn-label--md">Logga in</span></a>
+            <a href="#" class="btn btn--primary"><span class="btn-label btn-label--lg">Anmäl skada</span></a>
+            <a href="#" class="btn btn--outline"><span class="btn-label btn-label--lg">Logga in</span></a>
         </div>
     </div>
 

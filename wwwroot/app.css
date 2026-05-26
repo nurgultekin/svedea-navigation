@@ -170,8 +170,9 @@ h1:focus {
 .btn--primary {
     background-color: var(--color-white);
     color: var(--color-navy);
-    font-weight: 700;
+    font-weight: 500;
     padding: 0.75rem 1.5rem;
+    border: 1.5px solid white;
 }
 
 .btn--primary:hover {
