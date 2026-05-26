@@ -2,6 +2,7 @@
 .nav__category-btn {
     width: 100%;
     justify-content: space-between;
+    gap: 0.625rem;
     text-align: left;
     padding: 0.875rem 1.5rem;
     border-radius: 0;
@@ -13,9 +14,27 @@
     color: inherit; /* suppress btn--icon teal hover in this context */
 }
 
+.mobile-cat.is-open .nav__category-btn {
+    background-color: rgba(0, 0, 0, 0.15);
+}
+
+.mobile-cat.is-open .nav__category-btn:hover {
+    background-color: rgba(0, 0, 0, 0.15);
+}
+
 .nav__category-btn:focus-visible {
     outline: var(--focus-outline) solid var(--color-focus-ring);
     outline-offset: -2px;
+}
+.mobile-cat {
+    display:flex;
+    flex-direction:column;
+    gap: 1dvh;
+}
+
+.mobile-cat__icon {
+    flex-shrink: 0;
+    opacity: 0.85;
 }
 
 .mobile-cat__name {
@@ -35,20 +54,21 @@
     overflow: hidden;
     visibility: hidden;
     transition: max-height 0.25s ease, visibility 0s linear 0.25s;
+}
+.mobile-cat.is-open {
     background-color: rgba(0, 0, 0, 0.15);
 }
-
 .mobile-cat__links.is-open {
     max-height: 30rem;
     visibility: visible;
     transition: max-height 0.25s ease, visibility 0s;
+    padding-bottom:0.8rem;
 }
 
 .nav__link--sub {
     display: block;
-    padding: 0.75rem 1.5rem 0.75rem 2rem;
+    padding: 1.25rem 1.5rem 1.25rem 2rem;
     font-family: var(--font-primary);
-    font-size: var(--nav-small-font);
     color: rgba(255, 255, 255, 0.8);
     text-decoration: none;
     border-left: var(--active-border-width) solid transparent;
@@ -68,4 +88,13 @@
 .nav__link--sub:focus-visible {
     outline: var(--focus-outline) solid var(--color-focus-ring);
     outline-offset: -2px;
+}
+
+.mobile-cat__divider {
+    border: none;
+    height: 1px;
+    background-color: rgba(255, 255, 255, 0.12);
+    width: 6rem;
+    margin: 0 1.5rem;
+    list-style: none;
 }
