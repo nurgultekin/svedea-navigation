@@ -1,0 +1,100 @@
+/* Category accordion toggle — btn + btn--icon reset, overridden for full-width block use */
+.nav__category-btn {
+    width: 100%;
+    justify-content: space-between;
+    gap: 0.625rem;
+    text-align: left;
+    padding: 0.875rem 1.5rem;
+    border-radius: 0;
+    font-size: var(--nav-font-size);
+}
+
+.nav__category-btn:hover {
+    background-color: rgba(255, 255, 255, 0.07);
+    color: inherit; /* suppress btn--icon teal hover in this context */
+}
+
+.mobile-cat.is-open .nav__category-btn {
+    background-color: rgba(0, 0, 0, 0.15);
+}
+
+.mobile-cat.is-open .nav__category-btn:hover {
+    background-color: rgba(0, 0, 0, 0.15);
+}
+
+.nav__category-btn:focus-visible {
+    outline: var(--focus-outline) solid var(--color-focus-ring);
+    outline-offset: -2px;
+}
+.mobile-cat {
+    display:flex;
+    flex-direction:column;
+    gap: 1dvh;
+}
+
+.mobile-cat__icon {
+    flex-shrink: 0;
+    opacity: 0.85;
+}
+
+.mobile-cat__name {
+    flex: 1;
+}
+
+/* Mobile category chevrons are teal — contextual color only */
+.nav__category-btn .chevron {
+    color: var(--color-teal);
+}
+
+.mobile-cat__links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    max-height: 0;
+    overflow: hidden;
+    visibility: hidden;
+    transition: max-height 0.25s ease, visibility 0s linear 0.25s;
+}
+.mobile-cat.is-open {
+    background-color: rgba(0, 0, 0, 0.15);
+}
+.mobile-cat__links.is-open {
+    max-height: 30rem;
+    visibility: visible;
+    transition: max-height 0.25s ease, visibility 0s;
+    padding-bottom:0.8rem;
+}
+
+.nav__link--sub {
+    display: block;
+    padding: 1.25rem 1.5rem 1.25rem 2rem;
+    font-family: var(--font-primary);
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    border-left: var(--active-border-width) solid transparent;
+}
+
+.nav__link--sub:hover {
+    color: var(--color-white);
+    background-color: rgba(255, 255, 255, 0.07);
+}
+
+.nav__link--sub.is-active {
+    color: var(--nav-link-color-active);
+    border-left-color: var(--nav-link-indicator);
+    font-weight: 700;
+}
+
+.nav__link--sub:focus-visible {
+    outline: var(--focus-outline) solid var(--color-focus-ring);
+    outline-offset: -2px;
+}
+
+.mobile-cat__divider {
+    border: none;
+    height: 1px;
+    background-color: rgba(255, 255, 255, 0.12);
+    width: 6rem;
+    margin: 0 1.5rem;
+    list-style: none;
+}

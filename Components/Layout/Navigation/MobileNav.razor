@@ -1,0 +1,232 @@
+@inject NavigationManager Nav
+
+<!-- Mobile header bar (always visible on mobile) -->
+<div class="mobile-nav" role="banner">
+    <div class="mobile-nav__bar">
+        <div class="mobile-nav__bar-left">
+            <a href="#" class="btn btn--icon" aria-label="Kontakt">
+                <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                     stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path
+                    d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 9.5a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.77a16 16 0 0 0 6.29 6.29l1.06-.94a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" />
+                </svg>
+            </a>
+            <a href="#" class="btn btn--icon" aria-label="Logga in">
+                <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                     stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                    <circle cx="12" cy="7" r="4" />
+                </svg>
+            </a>
+        </div>
+
+        <a href="/" class="nav-logo-link" aria-label="Svedea – gå till startsidan">
+            <img src="/media/svedea_logo_white.png" alt="Svedea" class="nav-logo" />
+        </a>
+
+        <button class="btn btn--icon" aria-label="@(IsOpen ? "Stäng meny" : "Öppna meny")"
+                aria-expanded="@IsOpen.ToString().ToLower()" aria-controls="mobile-overlay" @onclick="OnToggle">
+            @if (IsOpen)
+            {
+                <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M18 6L6 18M6 6l12 12" />
+                </svg>
+            }
+            else
+            {
+                <svg aria-hidden="true" width="24" height="24" viewBox="0 0 30 30" fill="none"
+                     xmlns="http://www.w3.org/2000/svg">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"
+                          d="M4 7h22M4 15h22M4 23h22" />
+                </svg>
+            }
+        </button>
+    </div>
+
+    <!-- Overlay panel -->
+    <div id="mobile-overlay" class="mobile-nav__overlay @(IsOpen ? "is-open" : "")" role="dialog" aria-modal="true"
+         aria-label="Navigeringsmeny" @onkeydown="HandleKeyDown">
+
+        <!-- Overlay header -->
+        <div class="mobile-nav__overlay-header">
+            <div class="mobile-nav__overlay-icons">
+                <a href="#" class="btn btn--icon" aria-label="Kontakt">
+                    <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                         stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path
+                        d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 9.5a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.77a16 16 0 0 0 6.29 6.29l1.06-.94a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" />
+                    </svg>
+                </a>
+                <a href="#" class="btn btn--icon" aria-label="Logga in">
+                    <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                         stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                        <circle cx="12" cy="7" r="4" />
+                    </svg>
+                </a>
+            </div>
+            <a href="/" class="nav-logo-link" aria-label="Svedea – gå till startsidan">
+                <img src="/media/svedea_logo_white.png" alt="Svedea" class="nav-logo" />
+            </a>
+            <button class="btn btn--icon" aria-label="Stäng meny" @onclick="OnClose">
+                <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M18 6L6 18M6 6l12 12" />
+                </svg>
+            </button>
+        </div>
+
+        <!-- Search -->
+        <div class="mobile-nav__search">
+            <label for="mobile-search" class="sr-only">Sök</label>
+            <div class="mobile-nav__search-wrap @(_searchFocused && SearchResults.Any() ? "has-results" : "")">
+                <div class="mobile-nav__search-row">
+                    <svg aria-hidden="true" class="mobile-nav__search-icon" width="18" height="18" viewBox="0 0 24 24"
+                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8" />
+                        <path d="m21 21-4.35-4.35" />
+                    </svg>
+                    <input id="mobile-search" type="search" placeholder="Sök på svedea..."
+                           class="mobile-nav__search-input"
+                           @oninput="e => _searchQuery = e.Value?.ToString() ?? string.Empty"
+                           @onfocus="OnSearchFocus"
+                           @onblur="OnSearchBlur" />
+                </div>
+                @if (_searchFocused && SearchResults.Any())
+                {
+                    <ul class="mobile-nav__search-results" role="listbox" aria-label="Sökresultat">
+                        @foreach (var r in SearchResults)
+                        {
+                            <li>
+                                <a href="@r.Url" class="mobile-nav__search-result-item"
+                                   role="option" @onclick="OnClose">
+                                    @r.Label
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                }
+            </div>
+        </div>
+
+        <!-- Nav content (fully data-driven) -->
+        <nav class="mobile-nav__content" aria-label="Mobil navigation">
+            @foreach (var item in PrimaryNav)
+            {
+                if (item.Children != null)
+                {
+                    <div class="mobile-nav__dropdown @(_insuranceOpen ? "is-open" : "")">
+                        <button class="nav-link mobile-nav__top-link mobile-nav__dropdown-toggle"
+                                aria-expanded="@_insuranceOpen.ToString().ToLower()" aria-controls="mobile-insurance-panel"
+                                @onclick="ToggleInsurance">
+                            <span class="btn-label btn-label--xl">@item.Label</span>
+                            <svg class="chevron @(_insuranceOpen ? "is-open" : "")" aria-hidden="true" width="16" height="16"
+                                 viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                 stroke-linejoin="round">
+                                <path d="M6 9l6 6 6-6" />
+                            </svg>
+                        </button>
+                        <div id="mobile-insurance-panel" class="mobile-nav__dropdown-panel @(_insuranceOpen ? "is-open" : "")">
+                            @foreach (var category in item.Children)
+                            {
+                                <MobileCategoryItem Category="category" IsOpen="_openCategory == category.Label"
+                                                    OnToggle="ToggleCategory" />
+                            }
+                            @if (item.Url != null)
+                            {
+                                <a href="@item.Url" class="mobile-nav__all-link" @onclick="OnClose">
+                                    <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none"
+                                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M5 12h14M12 5l7 7-7 7" />
+                                    </svg>
+                                    Se alla @item.Label.ToLower()
+                                </a>
+                            }
+                        </div>
+                    </div>
+                    <div class="mobile-nav__divider" role="separator"></div>
+                }
+                else
+                {
+                    <a href="@item.Url" class="nav-link mobile-nav__top-link @(IsActive(item.Url!) ? "is-active" : "")"
+                       aria-current="@(IsActive(item.Url!) ? "page" : null)" @onclick="OnClose">
+                        <span class="btn-label btn-label--xl">@item.Label</span>
+                    </a>
+                }
+            }
+        </nav>
+
+        <!-- Bottom CTAs -->
+        <div class="mobile-nav__footer">
+            <a href="#" class="btn btn--primary"><span class="btn-label btn-label--md">Anmäl skada</span></a>
+            <a href="#" class="btn btn--outline"><span class="btn-label btn-label--md">Logga in</span></a>
+        </div>
+    </div>
+
+    <!-- Backdrop (closes overlay when tapping outside on tablet) -->
+    @if (IsOpen)
+    {
+        <div class="mobile-nav__backdrop" @onclick="OnClose" aria-hidden="true"></div>
+    }
+</div>
+
+@code {
+    [Parameter] public List<NavItem> PrimaryNav { get; set; } = new();
+    [Parameter] public bool IsOpen { get; set; }
+    [Parameter] public EventCallback OnToggle { get; set; }
+    [Parameter] public EventCallback OnClose { get; set; }
+
+    private string? _openCategory;
+    private bool _prevIsOpen;
+    private bool _insuranceOpen;
+    private string _searchQuery = "";
+    private bool _searchFocused;
+
+    private IEnumerable<NavItem> SearchResults =>
+        string.IsNullOrWhiteSpace(_searchQuery)
+            ? Enumerable.Empty<NavItem>()
+            : FlattenNav(PrimaryNav)
+                .Where(x => x.Url != null &&
+                            x.Label.Contains(_searchQuery, StringComparison.OrdinalIgnoreCase))
+                .Take(7);
+
+    private IEnumerable<NavItem> FlattenNav(IEnumerable<NavItem> items) =>
+        items.SelectMany(x => x.Children != null
+            ? FlattenNav(x.Children).Prepend(x)
+            : new[] { x });
+
+    private bool IsActive(string path) =>
+        Nav.Uri.Contains(path, StringComparison.OrdinalIgnoreCase);
+
+    protected override void OnParametersSet()
+    {
+        if (_prevIsOpen && !IsOpen)
+        {
+            _openCategory = null;
+            _insuranceOpen = false;
+            _searchQuery = "";
+            _searchFocused = false;
+        }
+        _prevIsOpen = IsOpen;
+    }
+
+    private void OnSearchFocus() => _searchFocused = true;
+
+    private async Task OnSearchBlur(FocusEventArgs _)
+    {
+        await Task.Delay(150);
+        _searchFocused = false;
+    }
+
+    private void ToggleInsurance() => _insuranceOpen = !_insuranceOpen;
+
+    private void ToggleCategory(string name) =>
+        _openCategory = _openCategory == name ? null : name;
+
+    private void HandleKeyDown(KeyboardEventArgs e)
+    {
+        if (e.Key == "Escape")
+            OnClose.InvokeAsync();
+    }
+}

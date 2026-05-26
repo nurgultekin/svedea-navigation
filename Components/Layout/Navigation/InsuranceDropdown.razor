@@ -1,0 +1,68 @@
+@inject NavigationManager Nav
+
+<div id="insurance-dropdown"
+     class="insurance-dropdown @(IsOpen ? "is-open" : "")"
+     role="region"
+     aria-label="Försäkringar"
+     @onkeydown="HandleKeyDown">
+
+    <div class="insurance-dropdown__inner">
+        <div class="insurance-dropdown__grid">
+            @foreach (var category in Categories)
+            {
+                <div class="insurance-dropdown__category">
+                    <a href="@category.Url"
+                       class="insurance-dropdown__heading @(IsCurrentPage(category.Url) ? "is-active" : "")"
+                       aria-current="@(IsCurrentPage(category.Url) ? "page" : null)"
+                       @onclick="OnClose">
+                        @if (category.IconUrl != null)
+                        {
+                            <img src="/@category.IconUrl" alt="" aria-hidden="true" class="insurance-dropdown__icon" width="22" height="22" />
+                        }
+                        @category.Label
+                    </a>
+                    <ul class="insurance-dropdown__links">
+                        @foreach (var link in category.Children ?? new())
+                        {
+                            <li>
+                                <a href="@link.Url"
+                                   class="insurance-dropdown__link @(IsCurrentPage(link.Url) ? "is-active" : "")"
+                                   aria-current="@(IsCurrentPage(link.Url) ? "page" : null)"
+                                   @onclick="OnClose">
+                                    @link.Label
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            }
+        </div>
+        @if (InsuranceUrl != null)
+        {
+            <div class="insurance-dropdown__footer">
+                <a href="@InsuranceUrl" class="insurance-dropdown__all-link" @onclick="OnClose">
+                    Se alla försäkringar
+                    <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                </a>
+            </div>
+        }
+    </div>
+</div>
+
+@code {
+    [Parameter] public List<NavItem> Categories { get; set; } = new();
+    [Parameter] public string? InsuranceUrl { get; set; }
+    [Parameter] public bool IsOpen { get; set; }
+    [Parameter] public EventCallback OnClose { get; set; }
+
+    private bool IsCurrentPage(string? url) =>
+        url != null && Nav.Uri.EndsWith(url, StringComparison.OrdinalIgnoreCase);
+
+    private void HandleKeyDown(KeyboardEventArgs e)
+    {
+        if (e.Key == "Escape")
+            OnClose.InvokeAsync();
+    }
+}

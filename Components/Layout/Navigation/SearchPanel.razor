@@ -1,0 +1,104 @@
+<div class="search-panel @(IsOpen ? "is-open" : "")"
+     role="search"
+     aria-label="Sök på Svedea"
+     @onkeydown="HandleKeyDown">
+    <div class="search-panel__inner">
+        <label for="desktop-search" class="sr-only">Sök</label>
+        <div class="search-panel__input-wrap">
+            <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8" />
+                <path d="m21 21-4.35-4.35" />
+            </svg>
+            <input id="desktop-search"
+                   type="search"
+                   placeholder="Sök på Svedea..."
+                   class="search-panel__input"
+                   @oninput="e => _query = e.Value?.ToString() ?? string.Empty"
+                   @ref="_inputRef" />
+            <button class="btn btn--icon" aria-label="Stäng sök" @onclick="HandleClose">
+                <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M18 6 6 18M6 6l12 12" />
+                </svg>
+            </button>
+        </div>
+
+        @if (string.IsNullOrWhiteSpace(_query))
+        {
+            <div class="search-panel__cols">
+                <div>
+                    <p class="search-panel__col-heading">Vanliga söktermer</p>
+                    <a href="#" class="search-panel__suggestion">Bilförsäkring</a>
+                    <a href="#" class="search-panel__suggestion">Hundförsäkring</a>
+                    <a href="#" class="search-panel__suggestion">Hemförsäkring</a>
+                    <a href="#" class="search-panel__suggestion">Mc-försäkring</a>
+                    <a href="#" class="search-panel__suggestion">Snöskoterförsäkring</a>
+                </div>
+                <div>
+                    <p class="search-panel__col-heading">Snabbvägar</p>
+                    <a href="/skadeanmalan" class="search-panel__suggestion">Anmäl skada</a>
+                    <a href="/kontakt" class="search-panel__suggestion">Kontakt</a>
+                    <a href="/forsakringar" class="search-panel__suggestion">Se alla försäkringar</a>
+                </div>
+            </div>
+        }
+        else
+        {
+            <ul class="search-panel__results" role="listbox" aria-label="Sökresultat">
+                @foreach (var item in SearchResults)
+                {
+                    <li role="option">
+                        <a class="search-panel__result-item" href="@item.Url">@item.Label</a>
+                    </li>
+                }
+                @if (!SearchResults.Any())
+                {
+                    <li class="search-panel__no-results">Inga resultat för "@_query"</li>
+                }
+            </ul>
+        }
+    </div>
+</div>
+
+@code {
+    [Parameter] public bool IsOpen { get; set; }
+    [Parameter] public EventCallback OnClose { get; set; }
+    [Parameter] public List<NavItem> NavTree { get; set; } = new();
+
+    private string _query = string.Empty;
+    private ElementReference _inputRef;
+    private bool _prevIsOpen;
+
+    private IEnumerable<NavItem> SearchResults =>
+        string.IsNullOrWhiteSpace(_query)
+            ? Enumerable.Empty<NavItem>()
+            : FlattenNav(NavTree)
+                .Where(x => x.Url != null &&
+                            x.Label.Contains(_query, StringComparison.OrdinalIgnoreCase))
+                .Take(8);
+
+    private IEnumerable<NavItem> FlattenNav(IEnumerable<NavItem> items) =>
+        items.SelectMany(x => x.Children != null
+            ? FlattenNav(x.Children)
+            : new[] { x });
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (IsOpen && !_prevIsOpen)
+            await _inputRef.FocusAsync();
+        _prevIsOpen = IsOpen;
+    }
+
+    private async Task HandleClose()
+    {
+        _query = string.Empty;
+        await OnClose.InvokeAsync();
+    }
+
+    private async Task HandleKeyDown(KeyboardEventArgs e)
+    {
+        if (e.Key == "Escape")
+            await HandleClose();
+    }
+}

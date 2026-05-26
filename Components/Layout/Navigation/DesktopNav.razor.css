@@ -1,0 +1,98 @@
+.desktop-nav {
+    display: none;
+    background-color: var(--color-navy);
+    color: var(--color-white); /* sets inheritance context for .btn--icon */
+    width: 100%;
+    height: var(--nav-height);
+}
+
+.desktop-nav__inner {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    height: 100%;
+    max-width: 100rem;
+    margin-inline: auto;
+    padding-inline: clamp(1.5rem, 3vw, 5rem);
+    gap: var(--nav-gap);
+}
+
+/* ── Nav item groups ── */
+.nav-items {
+    display: flex;
+    align-items: center;
+    gap: var(--nav-gap);
+}
+
+.nav-items--right {
+    justify-content: flex-end;
+}
+
+
+/* Desktop nav links — layout and underline on top of global .nav-link base */
+.nav-link {
+    position: relative;
+    padding: 0.75rem 0.5rem;
+    white-space: nowrap;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -0.375rem;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--nav-link-indicator);
+    transform: scaleX(0);
+    transition: transform 0.15s ease;
+}
+
+.nav-link:hover::after {
+    transform: scaleX(1);
+}
+
+.nav-link.is-active {
+    color: var(--nav-link-color-active);
+}
+
+.nav-link:focus-visible {
+    outline: var(--focus-outline) solid var(--color-focus-ring);
+    outline-offset: 0.25rem;
+    border-radius: 0.125rem;
+}
+
+/* ── CENTER (logo) ── */
+.desktop-nav__logo-link {
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.nav-logo {
+    height: 2.25rem;
+    width: auto;
+}
+
+.nav__tagline {
+    font-family: var(--font-secondary);
+    font-size: 0.7rem;
+    color: var(--color-teal);
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+}
+
+/* ── Contextual override: desktop action buttons stack icon above label ── */
+.desktop-nav .btn--icon {
+    flex-direction: column;
+    gap: 0.2rem;
+    font-size: var(--nav-small-font);
+    padding: 0.75rem 0.5rem;
+    white-space: nowrap;
+}
+
+/* ── Responsive visibility ── */
+@media (min-width: 62em) {
+    .desktop-nav {
+        display: block;
+    }
+}

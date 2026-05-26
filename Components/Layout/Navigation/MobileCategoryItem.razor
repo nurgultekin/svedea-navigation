@@ -1,0 +1,53 @@
+@inject NavigationManager Nav
+
+<div class="mobile-cat @(IsOpen ? "is-open" : "")">
+    <button class="btn btn--icon nav__category-btn"
+            aria-expanded="@IsOpen.ToString().ToLower()"
+            aria-controls="mobile-cat-@_id"
+            @onclick="HandleToggle">
+        @if (Category.IconUrl != null)
+        {
+            <img src="/@Category.IconUrl" alt="" aria-hidden="true" class="mobile-cat__icon" width="20" height="20" />
+        }
+        <span class="mobile-cat__name btn-label btn-label--lg">@Category.Label</span>
+        <svg class="chevron @(IsOpen ? "is-open" : "")"
+             aria-hidden="true" width="16" height="16"
+             viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 9l6 6 6-6"/>
+        </svg>
+    </button>
+
+    <ul id="mobile-cat-@_id"
+        class="mobile-cat__links @(IsOpen ? "is-open" : "")"
+        role="list">
+        @foreach (var (link, index) in (Category.Children ?? new()).Select((l, i) => (l, i)))
+        {
+            @if (index > 0)
+            {
+                <li role="separator" class="mobile-cat__divider"></li>
+            }
+            <li>
+                <a href="@link.Url"
+                   class="nav__link--sub @(IsCurrentPage(link.Url) ? "is-active" : "")"
+                   aria-current="@(IsCurrentPage(link.Url) ? "page" : null)">
+                    <span class="btn-label btn-label--md">@link.Label</span>
+                </a>
+            </li>
+        }
+    </ul>
+</div>
+
+@code {
+    [Parameter] public NavItem Category { get; set; } = null!;
+    [Parameter] public bool IsOpen { get; set; }
+    [Parameter] public EventCallback<string> OnToggle { get; set; }
+
+    private string _id => Category.Label.Replace(" ", "-").ToLowerInvariant();
+
+    private void HandleToggle() => OnToggle.InvokeAsync(Category.Label);
+
+    private bool IsCurrentPage(string? url) =>
+        url != null && Nav.Uri.EndsWith(url, StringComparison.OrdinalIgnoreCase);
+}
