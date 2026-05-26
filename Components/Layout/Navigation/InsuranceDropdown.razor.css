@@ -1,17 +1,27 @@
 .insurance-dropdown {
-    display: none;
     position: fixed;
     top: var(--nav-height);
     left: 0;
     right: 0;
     z-index: 98;
-    background-color: color-mix(in srgb, var(--color-teal) 25%, white);
+    background-color: #ffffff;
     border-top: 1px solid var(--color-border);
     box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.12);
+    transform: translateY(-0.5rem);
+    opacity: 0;
+    visibility: hidden;
+    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+                opacity 0.25s ease,
+                visibility 0s linear 0.25s;
 }
 
 .insurance-dropdown.is-open {
-    display: block;
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+                opacity 0.25s ease,
+                visibility 0s;
 }
 
 .insurance-dropdown__inner {
@@ -27,15 +37,20 @@
 }
 
 .insurance-dropdown__heading {
-    display: block;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
     font-family: var(--font-primary);
-    font-size: var(--nav-font-size);
-    font-weight: 700;
+    font-size: 1.125rem;
+    font-weight: 500;
     color: var(--color-navy);
     text-decoration: none;
     margin: 0 0 0.75rem 0;
     padding-bottom: 0.5rem;
-    border-bottom: 2px solid var(--color-teal);
+}
+
+.insurance-dropdown__icon {
+    flex-shrink: 0;
 }
 
 .insurance-dropdown__heading:hover {
@@ -65,8 +80,9 @@
 
 .insurance-dropdown__link {
     font-family: var(--font-primary);
-    font-size: var(--nav-small-font);
-    color: var(--color-link-dark);
+    font-size: 1rem;
+    font-weight: 200;
+    color: rgb(112, 112, 112);
     text-decoration: none;
     display: block;
     padding: 0.625rem 0.75rem;

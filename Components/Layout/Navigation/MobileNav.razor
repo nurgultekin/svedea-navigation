@@ -130,7 +130,7 @@
                         <div id="mobile-insurance-panel" class="mobile-nav__dropdown-panel @(_insuranceOpen ? "is-open" : "")">
                             @foreach (var category in item.Children)
                             {
-                                <MobileCategoryItem Category="category" IsOpen="_openCategories.Contains(category.Label)"
+                                <MobileCategoryItem Category="category" IsOpen="_openCategory == category.Label"
                                                     OnToggle="ToggleCategory" />
                             }
                             @if (item.Url != null)
@@ -177,7 +177,7 @@
     [Parameter] public EventCallback OnToggle { get; set; }
     [Parameter] public EventCallback OnClose { get; set; }
 
-    private HashSet<string> _openCategories = new();
+    private string? _openCategory;
     private bool _prevIsOpen;
     private bool _insuranceOpen;
     private string _searchQuery = "";
@@ -203,7 +203,7 @@
     {
         if (_prevIsOpen && !IsOpen)
         {
-            _openCategories.Clear();
+            _openCategory = null;
             _insuranceOpen = false;
             _searchQuery = "";
             _searchFocused = false;
@@ -221,13 +221,8 @@
 
     private void ToggleInsurance() => _insuranceOpen = !_insuranceOpen;
 
-    private void ToggleCategory(string name)
-    {
-        if (_openCategories.Contains(name))
-            _openCategories.Remove(name);
-        else
-            _openCategories.Add(name);
-    }
+    private void ToggleCategory(string name) =>
+        _openCategory = _openCategory == name ? null : name;
 
     private void HandleKeyDown(KeyboardEventArgs e)
     {

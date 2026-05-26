@@ -22,12 +22,12 @@
 @if (_insuranceOpen)
 {
     <div class="nav-backdrop" @onclick="CloseInsurance" aria-hidden="true"></div>
-    <InsuranceDropdown
-        Categories="_insuranceCategories"
-        InsuranceUrl="@_insuranceItem?.Url"
-        IsOpen="_insuranceOpen"
-        OnClose="CloseInsurance" />
 }
+<InsuranceDropdown
+    Categories="_insuranceCategories"
+    InsuranceUrl="@_insuranceItem?.Url"
+    IsOpen="_insuranceOpen"
+    OnClose="CloseInsurance" />
 
 @if (_searchOpen)
 {
