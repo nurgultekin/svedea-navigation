@@ -14,6 +14,14 @@
     color: inherit; /* suppress btn--icon teal hover in this context */
 }
 
+.mobile-cat.is-open .nav__category-btn {
+    background-color: rgba(0, 0, 0, 0.15);
+}
+
+.mobile-cat.is-open .nav__category-btn:hover {
+    background-color: rgba(0, 0, 0, 0.15);
+}
+
 .nav__category-btn:focus-visible {
     outline: var(--focus-outline) solid var(--color-focus-ring);
     outline-offset: -2px;
@@ -46,9 +54,10 @@
     overflow: hidden;
     visibility: hidden;
     transition: max-height 0.25s ease, visibility 0s linear 0.25s;
+}
+.mobile-cat.is-open {
     background-color: rgba(0, 0, 0, 0.15);
 }
-
 .mobile-cat__links.is-open {
     max-height: 30rem;
     visibility: visible;

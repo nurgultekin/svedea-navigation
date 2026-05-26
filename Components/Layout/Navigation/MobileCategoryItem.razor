@@ -1,6 +1,6 @@
 @inject NavigationManager Nav
 
-<div class="mobile-cat">
+<div class="mobile-cat @(IsOpen ? "is-open" : "")">
     <button class="btn btn--icon nav__category-btn"
             aria-expanded="@IsOpen.ToString().ToLower()"
             aria-controls="mobile-cat-@_id"
