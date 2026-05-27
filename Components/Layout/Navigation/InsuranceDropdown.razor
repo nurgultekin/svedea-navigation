@@ -23,7 +23,7 @@
                         {
                             <li>
                                 <a href="@link.Url"
-                                   class="insurance-dropdown__link @(IsCurrentPage(link.Url) ? "is-active" : "")"
+                                   class="nav__sub-link focus-ring @(IsCurrentPage(link.Url) ? "is-active" : "")"
                                    aria-current="@(IsCurrentPage(link.Url) ? "page" : null)"
                                    @onclick="OnClose">
                                     @link.Label
@@ -37,7 +37,7 @@
         @if (InsuranceUrl != null)
         {
             <div class="insurance-dropdown__footer">
-                <a href="@InsuranceUrl" class="insurance-dropdown__all-link" @onclick="OnClose">
+                <a href="@InsuranceUrl" class="btn btn--tertiary btn--tertiary--dark focus-ring" @onclick="OnClose">
                     Se alla försäkringar
                     <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M5 12h14M12 5l7 7-7 7"/>
