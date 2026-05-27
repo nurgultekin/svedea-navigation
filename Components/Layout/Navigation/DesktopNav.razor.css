@@ -4,17 +4,21 @@
     color: var(--color-white); /* sets inheritance context for .btn--icon */
     width: 100%;
     height: var(--nav-height);
+    --nav-font-size:  clamp(1rem, 1.1vw, 1.25rem);
+    --nav-small-font: clamp(0.875rem, 0.95vw, 1.0625rem);
 }
 
 .desktop-nav__inner {
     display: grid;
-    grid-template-columns: 1fr auto 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     align-items: center;
     height: 100%;
     max-width: 100rem;
     margin-inline: auto;
     padding-inline: clamp(1.5rem, 3vw, 5rem);
     gap: var(--nav-gap);
+/*     --nav-font-size:  clamp(0.875rem, 1vw, 1.250rem);
+    --nav-small-font: clamp(0.75rem, 0.85vw, 1rem); */
 }
 
 /* ── Nav item groups ── */
@@ -25,7 +29,22 @@
 }
 
 .nav-items--right {
-    justify-content: flex-end;
+    justify-content: flex-start;
+    gap:0px;
+}
+
+/*Desktop button customization*/
+.desktop-nav__inner .btn--primary {
+    margin-left:1.5vw;
+    padding-inline: clamp(0.75rem, 1.5vw, 1.75rem);
+}
+
+.desktop-nav .btn--dropdown {
+    font-size: clamp(1rem, 1.1vw, 1.25rem);
+}
+
+.desktop-nav .btn--icon--labeled {
+    font-size: clamp(0.875rem, 0.95vw, 1.0625rem);
 }
 
 
@@ -56,12 +75,6 @@
     color: var(--nav-link-color-active);
 }
 
-.nav-link:focus-visible {
-    outline: var(--focus-outline) solid var(--color-focus-ring);
-    outline-offset: 0.25rem;
-    border-radius: 0.125rem;
-}
-
 /* ── CENTER (logo) ── */
 .desktop-nav__logo-link {
     flex-direction: column;
@@ -69,24 +82,15 @@
 }
 
 .nav-logo {
-    height: 2.25rem;
+    height: clamp(1.75rem, 2.5vw, 2.75rem);
     width: auto;
 }
 
 .nav__tagline {
     font-family: var(--font-secondary);
-    font-size: 0.7rem;
+    font-size: clamp(0.6rem, 0.7vw, 0.85rem);
     color: var(--color-teal);
     letter-spacing: 0.04em;
-    white-space: nowrap;
-}
-
-/* ── Contextual override: desktop action buttons stack icon above label ── */
-.desktop-nav .btn--icon {
-    flex-direction: column;
-    gap: 0.2rem;
-    font-size: var(--nav-small-font);
-    padding: 0.75rem 0.5rem;
     white-space: nowrap;
 }
 

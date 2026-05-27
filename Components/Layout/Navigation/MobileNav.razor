@@ -46,7 +46,7 @@
 
     <!-- Overlay panel -->
     <div id="mobile-overlay" class="mobile-nav__overlay @(IsOpen ? "is-open" : "")" role="dialog" aria-modal="true"
-         aria-label="Navigeringsmeny" @onkeydown="HandleKeyDown">
+         aria-label="Navigeringsmeny" @onkeydown="HandleKeyDown" @onclick="HandleOverlayClick">
 
         <!-- Overlay header -->
         <div class="mobile-nav__overlay-header">
@@ -78,9 +78,9 @@
         </div>
 
         <!-- Search -->
-        <div class="mobile-nav__search">
+        <div class="mobile-nav__search" @onclick:stopPropagation="true">
             <label for="mobile-search" class="sr-only">Sök</label>
-            <div class="mobile-nav__search-wrap @(_searchFocused && SearchResults.Any() ? "has-results" : "")">
+            <div class="mobile-nav__search-wrap @(ShowResults ? "has-results" : "")">
                 <div class="mobile-nav__search-row">
                     <svg aria-hidden="true" class="mobile-nav__search-icon" width="18" height="18" viewBox="0 0 24 24"
                          fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -93,19 +93,18 @@
                            @oninput="e => _searchQuery = e.Value?.ToString() ?? string.Empty" @onfocus="OnSearchFocus"
                            @onblur="OnSearchBlur" />
                 </div>
-                @if (_searchFocused && SearchResults.Any())
-                {
-                    <ul class="mobile-nav__search-results" role="listbox" aria-label="Sökresultat">
-                        @foreach (var r in SearchResults)
-                        {
-                            <li>
-                                <a href="@r.Url" class="mobile-nav__search-result-item" role="option" @onclick="OnClose">
-                                    @r.Label
-                                </a>
-                            </li>
-                        }
-                    </ul>
-                }
+                <ul class="mobile-nav__search-results @(ShowResults ? "is-open" : "")" role="listbox"
+                    aria-label="Sökresultat">
+                    @foreach (var r in SearchResults)
+                    {
+                        <li>
+                            <a href="@r.Url" class="mobile-nav__search-result-item focus-ring" role="option"
+                               @onclick="OnClose">
+                                @r.Label
+                            </a>
+                        </li>
+                    }
+                </ul>
             </div>
         </div>
 
@@ -126,7 +125,8 @@
                                 <path d="M6 9l6 6 6-6" />
                             </svg>
                         </button>
-                        <div id="mobile-insurance-panel" class="mobile-nav__dropdown-panel nav-stagger @(_insuranceOpen ? "is-open" : "")">
+                        <div id="mobile-insurance-panel"
+                             class="mobile-nav__dropdown-panel nav-stagger @(_insuranceOpen ? "is-open" : "")">
                             @foreach (var category in item.Children)
                             {
                                 <MobileCategoryItem Category="category" IsOpen="_openCategory == category.Label"
@@ -134,7 +134,7 @@
                             }
                             @if (item.Url != null)
                             {
-                                <a href="@item.Url" class="mobile-nav__all-link" @onclick="OnClose">
+                                <a href="@item.Url" class="btn btn--tertiary btn--tertiary--white focus-ring" @onclick="OnClose">
                                     <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none"
                                          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                         <path d="M5 12h14M12 5l7 7-7 7" />
@@ -148,7 +148,8 @@
                 }
                 else
                 {
-                    <a href="@item.Url" class="nav-link mobile-nav__top-link @(IsActive(item.Url!) ? "is-active" : "")"
+                    <a href="@item.Url"
+                       class="nav-link mobile-nav__top-link focus-ring @(IsActive(item.Url!) ? "is-active" : "")"
                        aria-current="@(IsActive(item.Url!) ? "page" : null)" @onclick="OnClose">
                         <span class="btn-label btn-label--xl">@item.Label</span>
                     </a>
@@ -158,8 +159,15 @@
 
         <!-- Bottom CTAs -->
         <div class="mobile-nav__footer">
-            <a href="#" class="btn btn--primary"><span class="btn-label btn-label--lg">Anmäl skada</span></a>
-            <a href="#" class="btn btn--outline"><span class="btn-label btn-label--lg">Logga in</span></a>
+            <a href="#" class="btn btn--primary">Anmäl skada</a>
+            <a href="#" class="btn btn--tertiary btn--tertiary--light btn--tertiary--lg focus-ring">
+                <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                     stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                    <circle cx="12" cy="7" r="4" />
+                </svg>
+                Logga in
+            </a>
         </div>
     </div>
 
@@ -181,6 +189,8 @@
     private bool _insuranceOpen;
     private string _searchQuery = "";
     private bool _searchFocused;
+
+    private bool ShowResults => _searchFocused && SearchResults.Any();
 
     private IEnumerable<NavItem> SearchResults =>
         string.IsNullOrWhiteSpace(_searchQuery)
@@ -217,7 +227,7 @@
         await Task.Delay(150);
         _searchFocused = false;
     }
-<!-- clear _openCategory when dropdown is closed; reset state -->
+    <!-- clear _openCategory when dropdown is closed; reset state -->
     private void ToggleInsurance()
     {
         _insuranceOpen = !_insuranceOpen;
@@ -227,6 +237,12 @@
 
     private void ToggleCategory(string name) =>
         _openCategory = _openCategory == name ? null : name;
+
+    private void HandleOverlayClick()
+    {
+        _searchFocused = false;
+        _searchQuery = "";
+    }
 
     private void HandleKeyDown(KeyboardEventArgs e)
     {
