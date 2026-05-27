@@ -1,5 +1,54 @@
-﻿@page "/"
+@page "/"
 
-<PageTitle>Svedea Home</PageTitle>
+<PageTitle>Svedea – Försäkringar som gör skillnad</PageTitle>
 
-<h1>Välkommen till Svedea!</h1>
+<section class="hero" aria-labelledby="hero-heading">
+    <div class="hero__image" aria-hidden="true">
+        <img src="/media/images/ski-1.webp" alt="" />
+    </div>
+    <div class="hero__content">
+        <h1 id="hero-heading" class="hero__heading">
+            Vi försäkrar det<br>du bryr dig om
+        </h1>
+        <p class="hero__sub">
+            Svedea hjälper dig hitta rätt försäkring med expertkunskap
+            och ett genuint engagemang.
+        </p>
+        <div class="hero__actions">
+            <a href="/forsakringar" class="btn btn--primary btn--primary--dark btn--lg">
+                Se alla försäkringar
+            </a>
+            <a href="/om-oss"
+               class="btn btn--tertiary btn--tertiary--dark btn--lg">
+                Om Svedea
+                <svg aria-hidden="true" width="16" height="16"
+                     viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor" stroke-width="2"
+                     stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+            </a>
+        </div>
+    </div>
+</section>
+
+<section class="contact" aria-labelledby="contact-heading">
+    <div class="contact__inner">
+        <p class="contact__eyebrow">Kundservice</p>
+        <h2 id="contact-heading" class="contact__heading">Frågor? Ring oss!</h2>
+        <p class="contact__sub">
+            Vi gillar kontakten med våra kunder och vill göra det lätt att nå oss.
+            Hör av dig så hjälper vi dig, oavsett ärende.
+        </p>
+        <div class="contact__card">
+            <div class="contact__card-left">
+                <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 9.5a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.77a16 16 0 0 0 6.29 6.29l1.06-.94a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
+                </svg>
+                <span>Kontakta oss</span>
+            </div>
+            <a href="#" class="contact__card-link">Visa kontaktuppgifter</a>
+        </div>
+    </div>
+</section>
