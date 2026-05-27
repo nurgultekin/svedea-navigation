@@ -270,9 +270,12 @@
     flex-shrink: 0;
 }
 
+.mobile-nav__footer .btn--primary {
+    gap: 0.625rem;
+    padding-left: 1.5rem;
+}
+
 .mobile-nav__footer .btn--tertiary {
-    justify-content: center;
-    width: 100%;
     padding: 0.875rem 1.5rem;
 }
 

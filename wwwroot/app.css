@@ -3,7 +3,7 @@
   --color-navy:         #005073;
   --color-navy-dark:    #003d57;
   --color-teal:         #91cfc9;
-  --color-teal-light:   #91cfc9;
+  --color-teal-light:   #b9e0dc;
   --color-white:        #ffffff;
   --color-body:         #404040;
   --color-link-dark:    #222222;
@@ -21,14 +21,18 @@
   --text-sm:      0.875rem;
   --text-base:    1rem;
   --text-lg:      1.125rem;
-  --text-xl:      1.25rem;  /* subheadings */
-  --text-2xl:     1.5rem;    /*  section headings */
-  --text-3xl:     1.875rem;  /*  page headings */
-  --text-4xl:     2.25rem;   /*  hero headings */
+  --text-xl:      1.25rem;
+  --text-2xl:     1.5rem;
+  --text-3xl:     1.875rem;
+  --text-4xl:     2.25rem;
+  --text-5xl:     2.85rem;
+  --text-6xl:     3.6rem;
+  --text-7xl:     4.5rem;
+  --text-8xl:     6rem;
   --text-tagline: 0.7rem;
 
   /* Nav sizing */
-  --nav-height:          5rem;
+  --nav-height:          clamp(5rem, 5.5vw, 6.8rem);
   --nav-height-mobile:   3.75rem;
   --nav-padding-x:       1.5rem;
   --nav-gap:             1vw;
@@ -182,6 +186,16 @@ h1:focus {
 }
 .btn--primary:hover { background-color: var(--color-teal); }
 .btn--primary:active { background-color: var(--color-teal); }
+.btn--primary--dark {
+    background-color: var(--color-teal-light);
+    color: var(--color-navy);
+    border-color: var(--color-teal);
+}
+.btn--primary--dark:hover {
+    background-color: var(--color-navy);
+    color: var(--color-white);
+    border-color: var(--color-navy);
+}
 
 /* Secondary — outlined pill */
 .btn--secondary {
