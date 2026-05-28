@@ -220,6 +220,16 @@
     color: var(--nav-link-color-active);
 }
 
+/* Open (expanded) Försäkringar toggle — same visual treatment as active links */
+/* .mobile-nav__dropdown.is-open > .mobile-nav__dropdown-toggle {
+    background-color: var(--color-teal-light);
+    color: var(--color-navy);
+}
+
+.mobile-nav__dropdown.is-open > .mobile-nav__dropdown-toggle .chevron {
+    color: var(--color-navy);
+} */
+
 /* Dropdown toggle — button reset + layout; extends .mobile-nav__top-link visually */
 .mobile-nav__dropdown-toggle {
     appearance: none;

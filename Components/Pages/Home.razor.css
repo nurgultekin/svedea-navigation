@@ -29,7 +29,7 @@
     font-family: var(--font-primary);
     font-size: clamp(var(--text-lg), 1.2vw, var(--text-4xl));
     font-weight: 400;
-    color: rgba(0, 80, 115, 0.72);
+    color: var(--color-navy);
     line-height: var(--leading-normal);
     margin: 0 0 2.5rem;
     max-width: 36rem;

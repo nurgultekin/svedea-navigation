@@ -14,7 +14,7 @@
                    type="search"
                    placeholder="Sök på Svedea..."
                    class="search-panel__input"
-                   @oninput="e => _query = e.Value?.ToString() ?? string.Empty"
+                   @oninput="HandleSearchInput"
                    @ref="_inputRef" />
             <button class="btn btn--icon" aria-label="Stäng sök" @onclick="HandleClose">
                 <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none"
@@ -24,11 +24,13 @@
             </button>
         </div>
 
+        <p class="sr-only" role="status" aria-live="polite" aria-atomic="true">@_statusMessage</p>
+
         @if (string.IsNullOrWhiteSpace(_query))
         {
             <div class="search-panel__cols">
                 <div>
-                    <p class="search-panel__col-heading">Vanliga söktermer</p>
+                    <h3 class="search-panel__col-heading">Vanliga söktermer</h3>
                     <a href="#" class="search-panel__suggestion">Bilförsäkring</a>
                     <a href="#" class="search-panel__suggestion">Hundförsäkring</a>
                     <a href="#" class="search-panel__suggestion">Hemförsäkring</a>
@@ -36,7 +38,7 @@
                     <a href="#" class="search-panel__suggestion">Snöskoterförsäkring</a>
                 </div>
                 <div>
-                    <p class="search-panel__col-heading">Snabbvägar</p>
+                    <h3 class="search-panel__col-heading">Snabbvägar</h3>
                     <a href="/skadeanmalan" class="search-panel__suggestion">Anmäl skada</a>
                     <a href="/kontakt" class="search-panel__suggestion">Kontakt</a>
                     <a href="/forsakringar" class="search-panel__suggestion">Se alla försäkringar</a>
@@ -45,18 +47,18 @@
         }
         else
         {
-            <ul class="search-panel__results" role="listbox" aria-label="Sökresultat">
-                @foreach (var item in SearchResults)
+            <ul class="search-panel__results" role="list" aria-label="Sökresultat">
+                @foreach (var item in _results)
                 {
-                    <li role="option">
+                    <li>
                         <a class="search-panel__result-item" href="@item.Url">@item.Label</a>
                     </li>
                 }
-                @if (!SearchResults.Any())
-                {
-                    <li class="search-panel__no-results">Inga resultat för "@_query"</li>
-                }
             </ul>
+            @if (!_results.Any())
+            {
+                <p class="search-panel__no-results">Inga resultat för "@_query"</p>
+            }
         }
     </div>
 </div>
@@ -67,16 +69,10 @@
     [Parameter] public List<NavItem> NavTree { get; set; } = new();
 
     private string _query = string.Empty;
+    private string _statusMessage = string.Empty;
+    private List<NavItem> _results = new();
     private ElementReference _inputRef;
     private bool _prevIsOpen;
-
-    private IEnumerable<NavItem> SearchResults =>
-        string.IsNullOrWhiteSpace(_query)
-            ? Enumerable.Empty<NavItem>()
-            : FlattenNav(NavTree)
-                .Where(x => x.Url != null &&
-                            x.Label.Contains(_query, StringComparison.OrdinalIgnoreCase))
-                .Take(8);
 
     private IEnumerable<NavItem> FlattenNav(IEnumerable<NavItem> items) =>
         items.SelectMany(x => x.Children != null
@@ -90,9 +86,25 @@
         _prevIsOpen = IsOpen;
     }
 
+    private void HandleSearchInput(ChangeEventArgs e)
+    {
+        _query = e.Value?.ToString() ?? string.Empty;
+        _results = string.IsNullOrWhiteSpace(_query)
+            ? new()
+            : FlattenNav(NavTree)
+                .Where(x => x.Url != null && x.Label.Contains(_query, StringComparison.OrdinalIgnoreCase))
+                .Take(8)
+                .ToList();
+        _statusMessage = _results.Any()
+            ? $"{_results.Count} resultat"
+            : (_query.Length > 1 ? "Inga resultat" : string.Empty);
+    }
+
     private async Task HandleClose()
     {
         _query = string.Empty;
+        _results = new();
+        _statusMessage = string.Empty;
         await OnClose.InvokeAsync();
     }
 

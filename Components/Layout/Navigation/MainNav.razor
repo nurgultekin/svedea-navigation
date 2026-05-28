@@ -6,6 +6,8 @@
 <div class="main-nav-wrapper" @onkeydown="HandleKeyDown">
     <DesktopNav
         PrimaryNav="_primaryNav"
+        InsuranceCategories="_insuranceCategories"
+        InsuranceUrl="@_insuranceItem?.Url"
         InsuranceOpen="_insuranceOpen"
         OnInsuranceToggle="ToggleInsurance"
         OnInsuranceClose="CloseInsurance"
@@ -23,11 +25,6 @@
 {
     <div class="nav-backdrop" @onclick="CloseInsurance" aria-hidden="true"></div>
 }
-<InsuranceDropdown
-    Categories="_insuranceCategories"
-    InsuranceUrl="@_insuranceItem?.Url"
-    IsOpen="_insuranceOpen"
-    OnClose="CloseInsurance" />
 
 @if (_searchOpen)
 {

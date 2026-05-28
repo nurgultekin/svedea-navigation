@@ -1,4 +1,5 @@
 @inject NavigationManager Nav
+@inject IJSRuntime JS
 
 <header class="desktop-nav" role="banner">
     <div class="desktop-nav__inner">
@@ -30,6 +31,12 @@
             }
         </nav>
 
+        <InsuranceDropdown
+            Categories="InsuranceCategories"
+            InsuranceUrl="@InsuranceUrl"
+            IsOpen="InsuranceOpen"
+            OnClose="OnInsuranceClose" />
+
         <a href="/" class="nav-logo-link desktop-nav__logo-link focus-ring" aria-label="Svedea – gå till startsidan">
             <img src="/media/svedea_logo_white.png" alt="Svedea" class="nav-logo" />
             <span class="nav__tagline">Försäkringar som gör skillnad</span>
@@ -52,7 +59,8 @@
                 </svg>
                 Kontakt
             </a>
-            <button class="btn btn--icon btn--icon--labeled btn--sm"
+            <button id="search-nav-btn"
+                    class="btn btn--icon btn--icon--labeled btn--sm"
                     aria-label="@(SearchOpen ? "Stäng sök" : "Sök")"
                     aria-expanded="@SearchOpen.ToString().ToLower()"
                     aria-controls="desktop-search"
@@ -75,7 +83,7 @@
                     @:Sök
                 }
             </button>
-            <button href="#" class="btn btn--primary btn--md">Anmäl skada</button>
+            <a href="#" class="btn btn--primary btn--md">Anmäl skada</a>
         </div>
 
     </div>
@@ -83,11 +91,15 @@
 
 @code {
     [Parameter] public List<NavItem> PrimaryNav { get; set; } = new();
+    [Parameter] public List<NavItem> InsuranceCategories { get; set; } = new();
+    [Parameter] public string? InsuranceUrl { get; set; }
     [Parameter] public bool InsuranceOpen { get; set; }
     [Parameter] public EventCallback OnInsuranceToggle { get; set; }
     [Parameter] public EventCallback OnInsuranceClose { get; set; }
     [Parameter] public bool SearchOpen { get; set; }
     [Parameter] public EventCallback OnSearchToggle { get; set; }
+
+    private bool _prevInsuranceOpen;
 
     private bool IsActive(string path) =>
         Nav.Uri.Contains(path, StringComparison.OrdinalIgnoreCase);
@@ -96,6 +108,13 @@
         item.Children!
             .SelectMany(c => c.Children ?? new())
             .Any(l => l.Url != null && Nav.Uri.EndsWith(l.Url, StringComparison.OrdinalIgnoreCase));
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (InsuranceOpen && !_prevInsuranceOpen)
+            await JS.InvokeVoidAsync("focusElement", "insurance-first-link");
+        _prevInsuranceOpen = InsuranceOpen;
+    }
 
     private void HandleKeyDown(KeyboardEventArgs e)
     {
