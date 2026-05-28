@@ -194,7 +194,6 @@
 /* ── Nav content ── */
 .mobile-nav__content {
     flex: 1;
-    overflow-y: auto;
 }
 
 /* ── Insurance dropdown ── */
@@ -278,7 +277,6 @@
     flex-direction: column;
     gap: 0.75rem;
     border-top: 1px solid rgba(243, 243, 243, 0.1);
-    flex-shrink: 0;
 }
 
 .mobile-nav__footer .btn--primary {
