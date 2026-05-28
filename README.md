@@ -107,3 +107,10 @@ Note: I use the F1 free tier does not support WebSockets, so Blazor Server's Sig
 - **Localization** — language selection in the navbar (sv/en at minimum).
 - **Search index** — search currently filters the nav tree client-side. A real implementation would query a full-site index including article content.
 - **Automated tests** — no tests exist. With more time: Playwright end-to-end tests covering keyboard navigation flows and responsive breakpoints, plus assistive technology testing (screen reader pass-throughs) to iterate on accessibility properly.
+
+## Workflow (Project roadmap and Issues)
+<img width="1005" height="749" alt="image" src="https://github.com/user-attachments/assets/2c024cb2-c2e1-45d8-ba2f-b297d883cdd2" />
+<img width="1112" height="579" alt="image" src="https://github.com/user-attachments/assets/73ce527c-0130-4175-a821-bca4622dad11" />
+
+
+
