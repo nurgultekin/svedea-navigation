@@ -34,6 +34,7 @@ The original search opened a modal requiring a second interaction to actually se
 
 | Concern | Choice |
 |---|---|
+| Language | C# |
 | Framework | Blazor Server (.NET 10) |
 | Styling | Plain CSS — custom properties, `clamp()`, scoped component files |
 | JS | Vanilla — focus trap only (`navFocusTrap.js`) |
@@ -44,13 +45,13 @@ The original search opened a modal requiring a second interaction to actually se
 ## Design decisions
 
 **Full-width navbar**
-The original svedea.se wraps the header inside a max-width container, leaving visible background on both sides at wide screens. I let the navbar span the full viewport and constrain only the inner content grid to make better use of available space on the navigation bar.
+The original svedea.se wraps the header inside a max-width container, and it leaves visible background on both sides at wide screens. I let the navbar span the full viewport and constrain only the inner content grid to make better use of available space on the navigation bar.
 
 **Fluid scaling**
 Font sizes and padding in the desktop nav scale with `clamp()`, so the bar doesn't feel cramped at ~992 px or oversized at 1600 px. Mobile uses fixed sizes where predictable touch targets matter more.
 
 **Active states**
-The three primary links (Försäkringar, Tips & råd, Om oss) have active state styling so users always know where they are. Icon buttons (Logga in, Kontakt, Sök) get a color shift on hover instead of an underline — more appropriate for their smaller footprint.
+The three primary links (Försäkringar, Tips & råd, Om oss) have active state styling so users always know where they are. Icon buttons (Logga in, Kontakt, Sök) get a color shift on hover instead of an underline; can be more appropriate for their smaller footprint.
 
 **Mobile navigation**
 Hamburger + accordion with progressive disclosure: the three top-level items appear first, Försäkringar expands to reveal categories, which expand to reveal products. Each nesting level has a distinct visual treatment — a teal left border scopes the open section, a darkened background on the category level, subtle separators between sub-items — to reduce cognitive load.
@@ -65,7 +66,7 @@ Breakpoints use `em` units instead of `px` so they stay relative to the user's b
 The original svedea.se removes all outlines globally with `outline: 0 !important`. I kept native focus outlines intact and built a consistent focus ring system across all interactive elements instead.
 
 **Search panel**
-The original design opened a modal that required a second click to actually search — unnecessary friction. I replaced it with a dropdown that shows frequently searched options and sitemap shortcuts as suggestions, plus a prefill (typeahead) that pulls from nav data client-side.
+The original design opened a modal that required a second click to actually search. I replaced it with a dropdown that shows frequently searched options and sitemap shortcuts as suggestions, plus a prefill (typeahead) that pulls from nav data client-side.
 
 ---
 
@@ -77,7 +78,7 @@ Rather than writing component-specific CSS ad hoc, I built a small token-based s
 - **Button system** — composable base + tier + modifier classes. `.btn` is the reset; `.btn--primary / --secondary / --tertiary` set visual weight; modifiers like `.btn--lg`, `.btn--icon`, `.btn--icon--labeled`, `.btn--tertiary--light` handle size and context variations.
 - **Nav primitives** — nav link, sub-link, and search input styles follow the same logic: one definition, contextual overrides via combo classes in scoped component files.
 
-The goal: changing a token cascades everywhere, and adding a new component means reaching for existing classes rather than writing new ones.
+The goal: maintainable and modular code. Changing a token cascades everywhere, and adding a new component means reaching for existing classes rather than writing new ones.
 
 ---
 
