@@ -9,6 +9,7 @@
   --color-link-dark:    #222222;
   --color-border:       #d9e6e6;
   --color-border-light: #ededed;
+  --color-border-ui:    #767676;
   --color-focus-ring:   #91cfc9;
   --color-cta-border:   #ffffff;
 
@@ -79,6 +80,12 @@ html, body {
 
 .skip-link:focus {
     left: 1rem;
+}
+
+@media (max-width: 61.99em) {
+    .skip-link--search {
+        display: none;
+    }
 }
 
 a {
@@ -173,7 +180,7 @@ h1:focus {
 .btn:focus-visible {
     outline: var(--focus-outline) solid var(--color-focus-ring);
     outline-offset: 0.25rem;
-    border-radius: 0.125rem;
+    border-radius: 0.25rem;
 }
 
 /* Primary — solid white pill (on dark bg); turns teal on hover/press */
@@ -312,7 +319,7 @@ h1:focus {
 .nav-logo-link:focus-visible {
     outline: var(--focus-outline) solid var(--color-focus-ring);
     outline-offset: 0.25rem;
-    border-radius: 0.125rem;
+    border-radius: 0.25rem;
 }
 
 .sr-only {
@@ -330,7 +337,13 @@ h1:focus {
 .focus-ring:focus-visible {
     outline: var(--focus-outline) solid var(--color-focus-ring);
     outline-offset: 0.25rem;
-    border-radius: 0.125rem;
+    border-radius: 0.25rem;
+}
+
+.nav-link:focus-visible {
+    outline: var(--focus-outline) solid var(--color-focus-ring);
+    outline-offset: 0.25rem;
+    border-radius: 0.25rem;
 }
 
 /* Sub-link — shared base for insurance dropdown and mobile category links */

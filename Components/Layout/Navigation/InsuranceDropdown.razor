@@ -8,6 +8,7 @@
 
     <div class="insurance-dropdown__inner">
         <div class="insurance-dropdown__grid">
+            @{int linkIdx = 0;}
             @foreach (var category in Categories)
             {
                 <div class="insurance-dropdown__category">
@@ -23,6 +24,7 @@
                         {
                             <li>
                                 <a href="@link.Url"
+                                   id="@(linkIdx++ == 0 ? "insurance-first-link" : null)"
                                    class="nav__sub-link focus-ring @(IsCurrentPage(link.Url) ? "is-active" : "")"
                                    aria-current="@(IsCurrentPage(link.Url) ? "page" : null)"
                                    @onclick="OnClose">
